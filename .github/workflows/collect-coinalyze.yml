@@ -1,0 +1,101 @@
+name: collect-coinalyze
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "20 2 * * *"
+permissions:
+  contents: write
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Pull completed days from Coinalyze
+        env:
+          COINALYZE_KEY: ${{ secrets.COINALYZE_KEY }}
+        run: |
+          python - <<'EOF'
+          import json, os, time, urllib.request, urllib.error
+          from datetime import datetime, timedelta, timezone
+
+          KEY = os.environ["COINALYZE_KEY"]
+          BASES = ["BTC", "ETH", "SOL", "BNB", "XRP", "DOGE", "ADA", "AVAX", "LINK", "LTC"]
+          VENUES = {"A": "USDT", "6": "USDT", "3": "USDT", "H": None}  # Binance, Bybit, OKX, Hyperliquid
+          API = "https://api.coinalyze.net/v1"
+          DATASETS = [("liquidation-history", "1min", "liq_1min", ["l", "s"]),
+                      ("open-interest-history", "5min", "oi_5min", ["o", "h", "l", "c"])]
+          LOOKBACK_DAYS = 8
+
+          def get(path, **p):
+              p["api_key"] = KEY
+              url = f"{API}/{path}?" + "&".join(f"{k}={v}" for k, v in p.items())
+              for _ in range(5):
+                  try:
+                      with urllib.request.urlopen(url, timeout=60) as r:
+                          return json.loads(r.read().decode())
+                  except urllib.error.HTTPError as e:
+                      if e.code == 429:
+                          time.sleep(int(e.headers.get("Retry-After", "10")) + 1)
+                          continue
+                      if e.code in (400, 401):
+                          print(f"HTTP {e.code} on {path}")
+                          return None
+                  except Exception:
+                      pass
+                  time.sleep(5)
+              return None
+
+          def secs(t):
+              return t // 1000 if t > 1e11 else t
+
+          markets = get("future-markets") or []
+          syms = sorted(m["symbol"] for m in markets
+                        if m.get("is_perpetual") and m.get("base_asset") in BASES
+                        and m["symbol"].split(".")[-1] in VENUES
+                        and (VENUES[m["symbol"].split(".")[-1]] is None or m.get("quote_asset") == "USDT"))
+          print(f"{len(syms)} symbols: {' '.join(syms)}")
+          time.sleep(2)
+
+          today = datetime.now(timezone.utc).date()
+          for ep, iv, folder, fields in DATASETS:
+              out = f"data/coinalyze/{folder}"
+              os.makedirs(out, exist_ok=True)
+              for back in range(LOOKBACK_DAYS, 0, -1):
+                  day = today - timedelta(days=back)
+                  full, part = f"{out}/{day}.csv", f"{out}/{day}_partial.csv"
+                  if os.path.exists(full) or os.path.exists(part):
+                      continue
+                  a = int(datetime(day.year, day.month, day.day, tzinfo=timezone.utc).timestamp())
+                  rows, ok = [], True
+                  for i in range(0, len(syms), 20):
+                      chunk = syms[i:i + 20]
+                      res = get(ep, symbols=",".join(chunk), interval=iv, convert_to_usd="true",
+                                **{"from": a, "to": a + 86399})
+                      time.sleep(1.6 * len(chunk))
+                      if res is None:
+                          ok = False
+                          break
+                      for item in res:
+                          for h in item.get("history", []):
+                              rows.append(f"{secs(h['t'])},{item['symbol']}," + ",".join(str(h.get(f, "")) for f in fields))
+                  if not ok or not rows:
+                      print(f"{folder} {day}: skipped (ok={ok}, rows={len(rows)})")
+                      continue
+                  first_t = min(int(r.split(",")[0]) for r in rows)
+                  path = full if first_t < a + 6 * 3600 else part
+                  with open(path, "w") as f:
+                      f.write("t,symbol," + ",".join(fields) + "\n" + "\n".join(sorted(rows)) + "\n")
+                  print(f"{folder} {day}: rows={len(rows)} -> {os.path.basename(path)}")
+          EOF
+      - name: Commit results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/coinalyze
+          git commit -m "Coinalyze daily collection" || echo "No changes"
+          git pull --rebase
+          git push
