@@ -12,41 +12,71 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - name: Download, unzip and combine Binance Vision metrics
+      - name: Download, unzip and combine Binance Vision data
         run: |
           python - <<'EOF'
           import io, os, zipfile, urllib.request, urllib.error
           import concurrent.futures as cf
-          from datetime import date, timedelta
+          from datetime import date, datetime, timedelta, timezone
 
           COINS = ["BTCUSDT", "ETHUSDT", "SOLUSDT", "BNBUSDT", "XRPUSDT",
                    "DOGEUSDT", "ADAUSDT", "AVAXUSDT", "LINKUSDT", "LTCUSDT"]
           START = date(2020, 9, 1)
-          BASE = "https://data.binance.vision/data/futures/um/daily/metrics"
-          OUT = "data/metrics"
-          COLS = ["sum_open_interest", "sum_open_interest_value",
-                  "count_toptrader_long_short_ratio", "sum_toptrader_long_short_ratio",
-                  "count_long_short_ratio", "sum_taker_long_short_vol_ratio"]
-          NAMES = ["oi", "oi_usd", "top_acct_ls", "top_pos_ls", "acct_ls", "taker_ls"]
-          FMT = [".8g", ".8g", ".5g", ".5g", ".5g", ".5g"]
-          os.makedirs(OUT, exist_ok=True)
+          ROOT = "https://data.binance.vision/data/futures/um"
           LAST = date.today() - timedelta(days=2)
+          POOL = cf.ThreadPoolExecutor(16)
+          errors = []
 
-          def fetch(coin, day):
-              url = f"{BASE}/{coin}/{coin}-metrics-{day:%Y-%m-%d}.zip"
+          def fetch(url):
               for _ in range(4):
                   try:
-                      with urllib.request.urlopen(url, timeout=30) as r:
+                      with urllib.request.urlopen(url, timeout=60) as r:
                           z = zipfile.ZipFile(io.BytesIO(r.read()))
-                      return day, z.read(z.namelist()[0]).decode().splitlines()
+                      return z.read(z.namelist()[0]).decode().splitlines()
                   except urllib.error.HTTPError as e:
                       if e.code == 404:
-                          return day, None
+                          return None
                   except Exception:
                       pass
-              return day, "ERR"
+              return "ERR"
 
-          def parse(lines):
+          def f8(x):
+              try:
+                  return format(float(x), ".8g")
+              except (ValueError, TypeError):
+                  return ""
+
+          def report(kind, coin, year, path, header, rows, errs):
+              errors.extend(errs)
+              if rows and not errs:
+                  rows = sorted(set(rows))
+                  with open(path, "w") as f:
+                      f.write(header + "\n" + "\n".join(rows) + "\n")
+              note = f" NOT WRITTEN, {len(errs)} errors, rerun" if errs else ""
+              print(f"{kind} {coin} {year}: rows={len(rows)}{note}", flush=True)
+
+          def months(year):
+              m0 = START.month if year == START.year else 1
+              m1 = LAST.month if year == LAST.year else 12
+              return [date(year, m, 1) for m in range(m0, m1 + 1)]
+
+          def days_in(ms):
+              nxt = date(ms.year + (ms.month == 12), ms.month % 12 + 1, 1)
+              d, out = max(ms, START), []
+              while d < nxt and d <= LAST:
+                  out.append(d)
+                  d += timedelta(days=1)
+              return out
+
+          # ---- metrics: 5-minute OI and positioning ratios (daily zips) ----
+          MCOLS = ["sum_open_interest", "sum_open_interest_value",
+                   "count_toptrader_long_short_ratio", "sum_toptrader_long_short_ratio",
+                   "count_long_short_ratio", "sum_taker_long_short_vol_ratio"]
+          MNAMES = ["oi", "oi_usd", "top_acct_ls", "top_pos_ls", "acct_ls", "taker_ls"]
+          MFMT = [".8g", ".8g", ".5g", ".5g", ".5g", ".5g"]
+          os.makedirs("data/metrics", exist_ok=True)
+
+          def parse_metrics(lines):
               rows, idx = [], None
               for ln in lines:
                   p = ln.strip().split(",")
@@ -56,9 +86,9 @@ jobs:
                       idx = {c: i for i, c in enumerate(p)}
                       continue
                   if idx is None:
-                      idx = {"create_time": 0, **{c: i + 2 for i, c in enumerate(COLS)}}
+                      idx = {"create_time": 0, **{c: i + 2 for i, c in enumerate(MCOLS)}}
                   vals = [p[idx["create_time"]][:16]]
-                  for c, f in zip(COLS, FMT):
+                  for c, f in zip(MCOLS, MFMT):
                       i = idx.get(c)
                       try:
                           vals.append(format(float(p[i]), f) if i is not None and p[i] != "" else "")
@@ -67,47 +97,106 @@ jobs:
                   rows.append(",".join(vals))
               return rows
 
-          errors = []
           for coin in COINS:
               for year in range(START.year, LAST.year + 1):
-                  path = f"{OUT}/{coin}_{year}.csv"
+                  path = f"data/metrics/{coin}_{year}.csv"
                   if year < LAST.year and os.path.exists(path):
                       continue
                   a, b = max(START, date(year, 1, 1)), min(LAST, date(year, 12, 31))
                   days = [a + timedelta(n) for n in range((b - a).days + 1)]
-                  with cf.ThreadPoolExecutor(16) as ex:
-                      res = list(ex.map(lambda d: fetch(coin, d), days))
-                  rows, absent, errs = [], 0, []
-                  for d, lines in res:
-                      if lines == "ERR":
-                          errs.append(f"{coin} {d}")
-                      elif lines is None:
-                          absent += 1
-                      else:
-                          rows += parse(lines)
-                  errors += errs
-                  if rows and not errs:
-                      rows = sorted(set(rows))
-                      with open(path, "w") as f:
-                          f.write("t," + ",".join(NAMES) + "\n" + "\n".join(rows) + "\n")
-                  note = f" NOT WRITTEN, {len(errs)} download errors, rerun" if errs else ""
-                  print(f"{coin} {year}: rows={len(rows)} days_absent={absent}{note}", flush=True)
+                  urls = [f"{ROOT}/daily/metrics/{coin}/{coin}-metrics-{d:%Y-%m-%d}.zip" for d in days]
+                  res = list(POOL.map(fetch, urls))
+                  errs = [u for u, r in zip(urls, res) if r == "ERR"]
+                  rows = [row for r in res if isinstance(r, list) for row in parse_metrics(r)]
+                  report("metrics", coin, year, path, "t," + ",".join(MNAMES), rows, errs)
 
+          # ---- klines: 5-minute bars, trade count, taker buy volume (monthly zips, daily for recent) ----
+          os.makedirs("data/klines5m", exist_ok=True)
+
+          def parse_klines(lines):
+              out = []
+              for ln in lines:
+                  p = ln.strip().split(",")
+                  if len(p) < 11 or not p[0].isdigit():
+                      continue
+                  ot = int(p[0])
+                  ot = ot // 1000 if ot > 1e14 else ot
+                  t = datetime.fromtimestamp(ot / 1000, timezone.utc).strftime("%Y-%m-%d %H:%M")
+                  out.append(",".join([t, f8(p[1]), f8(p[2]), f8(p[3]), f8(p[4]), f8(p[5]), p[8], f8(p[9])]))
+              return out
+
+          for coin in COINS:
+              for year in range(START.year, LAST.year + 1):
+                  path = f"data/klines5m/{coin}_{year}.csv"
+                  if year < LAST.year and os.path.exists(path):
+                      continue
+                  ms = months(year)
+                  murls = [f"{ROOT}/monthly/klines/{coin}/5m/{coin}-5m-{m:%Y-%m}.zip" for m in ms]
+                  mres = list(POOL.map(fetch, murls))
+                  rows, errs = [], []
+                  for m, u, r in zip(ms, murls, mres):
+                      if isinstance(r, list):
+                          rows += parse_klines(r)
+                      elif r == "ERR":
+                          errs.append(u)
+                      else:
+                          durls = [f"{ROOT}/daily/klines/{coin}/5m/{coin}-5m-{d:%Y-%m-%d}.zip" for d in days_in(m)]
+                          for du, dr in zip(durls, list(POOL.map(fetch, durls))):
+                              if isinstance(dr, list):
+                                  rows += parse_klines(dr)
+                              elif dr == "ERR":
+                                  errs.append(du)
+                  report("klines", coin, year, path, "t,o,h,l,c,v,n,tbv", rows, errs)
+
+          # ---- funding: realised rate at each settlement (monthly zips) ----
+          os.makedirs("data/funding", exist_ok=True)
+
+          def parse_funding(lines):
+              out, idx = [], {"calc_time": 0, "funding_interval_hours": 1, "last_funding_rate": 2}
+              for ln in lines:
+                  p = ln.strip().split(",")
+                  if not p or not p[0]:
+                      continue
+                  if not p[0].isdigit():
+                      if "calc_time" in p:
+                          idx = {c: i for i, c in enumerate(p)}
+                      continue
+                  try:
+                      t = datetime.fromtimestamp(int(p[idx["calc_time"]]) / 1000, timezone.utc).strftime("%Y-%m-%d %H:%M")
+                      iv = p[idx["funding_interval_hours"]] if "funding_interval_hours" in idx else ""
+                      out.append(f"{t},{iv},{f8(p[idx['last_funding_rate']])}")
+                  except (KeyError, IndexError, ValueError):
+                      pass
+              return out
+
+          for coin in COINS:
+              ms = [m for y in range(START.year, LAST.year + 1) for m in months(y)]
+              urls = [f"{ROOT}/monthly/fundingRate/{coin}/{coin}-fundingRate-{m:%Y-%m}.zip" for m in ms]
+              res = list(POOL.map(fetch, urls))
+              errs = [u for u, r in zip(urls, res) if r == "ERR"]
+              rows = [row for r in res if isinstance(r, list) for row in parse_funding(r)]
+              report("funding", coin, "all", f"data/funding/{coin}.csv", "t,interval_h,rate", rows, errs)
+
+          # ---- manifest ----
           man = ["file,rows,first,last"]
-          for fn in sorted(os.listdir(OUT)):
-              if fn.endswith(".csv") and fn != "manifest.csv":
-                  with open(f"{OUT}/{fn}") as f:
-                      body = f.read().splitlines()[1:]
-                  if body:
-                      man.append(f"{fn},{len(body)},{body[0][:16]},{body[-1][:16]}")
-          with open(f"{OUT}/manifest.csv", "w") as f:
+          for folder in ["metrics", "klines5m", "funding"]:
+              for fn in sorted(os.listdir(f"data/{folder}")):
+                  if fn.endswith(".csv") and fn != "manifest.csv":
+                      with open(f"data/{folder}/{fn}") as f:
+                          body = f.read().splitlines()[1:]
+                      if body:
+                          man.append(f"{folder}/{fn},{len(body)},{body[0][:16]},{body[-1][:16]}")
+          if os.path.exists("data/metrics/manifest.csv"):
+              os.remove("data/metrics/manifest.csv")
+          with open("data/manifest.csv", "w") as f:
               f.write("\n".join(man) + "\n")
-          print(f"manifest: {len(man) - 1} files | download errors: {len(errors)} {errors[:10]}")
+          print(f"manifest: {len(man) - 1} files | download errors: {len(errors)} {errors[:5]}")
           EOF
       - name: Commit results
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/metrics
-          git commit -m "Binance Vision metrics update" || echo "No changes"
+          git add -A data
+          git commit -m "Binance Vision data update" || echo "No changes"
+          git pull --rebase
           git push
