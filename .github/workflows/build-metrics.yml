@@ -1,0 +1,113 @@
+name: build-metrics
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Download, unzip and combine Binance Vision metrics
+        run: |
+          python - <<'EOF'
+          import io, os, zipfile, urllib.request, urllib.error
+          import concurrent.futures as cf
+          from datetime import date, timedelta
+
+          COINS = ["BTCUSDT", "ETHUSDT", "SOLUSDT", "BNBUSDT", "XRPUSDT",
+                   "DOGEUSDT", "ADAUSDT", "AVAXUSDT", "LINKUSDT", "LTCUSDT"]
+          START = date(2020, 9, 1)
+          BASE = "https://data.binance.vision/data/futures/um/daily/metrics"
+          OUT = "data/metrics"
+          COLS = ["sum_open_interest", "sum_open_interest_value",
+                  "count_toptrader_long_short_ratio", "sum_toptrader_long_short_ratio",
+                  "count_long_short_ratio", "sum_taker_long_short_vol_ratio"]
+          NAMES = ["oi", "oi_usd", "top_acct_ls", "top_pos_ls", "acct_ls", "taker_ls"]
+          FMT = [".8g", ".8g", ".5g", ".5g", ".5g", ".5g"]
+          os.makedirs(OUT, exist_ok=True)
+          LAST = date.today() - timedelta(days=2)
+
+          def fetch(coin, day):
+              url = f"{BASE}/{coin}/{coin}-metrics-{day:%Y-%m-%d}.zip"
+              for _ in range(4):
+                  try:
+                      with urllib.request.urlopen(url, timeout=30) as r:
+                          z = zipfile.ZipFile(io.BytesIO(r.read()))
+                      return day, z.read(z.namelist()[0]).decode().splitlines()
+                  except urllib.error.HTTPError as e:
+                      if e.code == 404:
+                          return day, None
+                  except Exception:
+                      pass
+              return day, "ERR"
+
+          def parse(lines):
+              rows, idx = [], None
+              for ln in lines:
+                  p = ln.strip().split(",")
+                  if not p or not p[0]:
+                      continue
+                  if p[0] == "create_time":
+                      idx = {c: i for i, c in enumerate(p)}
+                      continue
+                  if idx is None:
+                      idx = {"create_time": 0, **{c: i + 2 for i, c in enumerate(COLS)}}
+                  vals = [p[idx["create_time"]][:16]]
+                  for c, f in zip(COLS, FMT):
+                      i = idx.get(c)
+                      try:
+                          vals.append(format(float(p[i]), f) if i is not None and p[i] != "" else "")
+                      except (ValueError, IndexError):
+                          vals.append("")
+                  rows.append(",".join(vals))
+              return rows
+
+          errors = []
+          for coin in COINS:
+              for year in range(START.year, LAST.year + 1):
+                  path = f"{OUT}/{coin}_{year}.csv"
+                  if year < LAST.year and os.path.exists(path):
+                      continue
+                  a, b = max(START, date(year, 1, 1)), min(LAST, date(year, 12, 31))
+                  days = [a + timedelta(n) for n in range((b - a).days + 1)]
+                  with cf.ThreadPoolExecutor(16) as ex:
+                      res = list(ex.map(lambda d: fetch(coin, d), days))
+                  rows, absent, errs = [], 0, []
+                  for d, lines in res:
+                      if lines == "ERR":
+                          errs.append(f"{coin} {d}")
+                      elif lines is None:
+                          absent += 1
+                      else:
+                          rows += parse(lines)
+                  errors += errs
+                  if rows and not errs:
+                      rows = sorted(set(rows))
+                      with open(path, "w") as f:
+                          f.write("t," + ",".join(NAMES) + "\n" + "\n".join(rows) + "\n")
+                  note = f" NOT WRITTEN, {len(errs)} download errors, rerun" if errs else ""
+                  print(f"{coin} {year}: rows={len(rows)} days_absent={absent}{note}", flush=True)
+
+          man = ["file,rows,first,last"]
+          for fn in sorted(os.listdir(OUT)):
+              if fn.endswith(".csv") and fn != "manifest.csv":
+                  with open(f"{OUT}/{fn}") as f:
+                      body = f.read().splitlines()[1:]
+                  if body:
+                      man.append(f"{fn},{len(body)},{body[0][:16]},{body[-1][:16]}")
+          with open(f"{OUT}/manifest.csv", "w") as f:
+              f.write("\n".join(man) + "\n")
+          print(f"manifest: {len(man) - 1} files | download errors: {len(errors)} {errors[:10]}")
+          EOF
+      - name: Commit results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/metrics
+          git commit -m "Binance Vision metrics update" || echo "No changes"
+          git push
