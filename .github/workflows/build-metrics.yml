@@ -1,6 +1,8 @@
 name: build-metrics
 on:
   workflow_dispatch:
+  schedule:
+    - cron: "40 3 * * *"
 permissions:
   contents: write
 jobs:
