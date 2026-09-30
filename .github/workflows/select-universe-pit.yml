@@ -1,0 +1,122 @@
+name: select-universe-pit
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  select:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - name: Point-in-time selection (rank by OI in the last week of 2022)
+        run: |
+          python3 - <<'EOF'
+          import io, os, re, zipfile, urllib.request, urllib.error
+          import concurrent.futures as cf
+          from urllib.parse import quote
+          from datetime import date, timedelta
+
+          OUT = "data/universe_pit.txt"
+          if os.path.exists(OUT):
+              print(f"{OUT} already exists: the point-in-time universe is frozen, nothing changed")
+              raise SystemExit(0)
+          ORIG = {"BTCUSDT", "ETHUSDT", "SOLUSDT", "BNBUSDT", "XRPUSDT",
+                  "DOGEUSDT", "ADAUSDT", "AVAXUSDT", "LINKUSDT", "LTCUSDT"}
+          STABLE = {"USDC", "FDUSD", "TUSD", "DAI", "USDP", "BUSD", "USDE", "USD1", "EUR"}
+          INDEX = {"BTCDOM", "DEFI", "FOOTBALL", "BLUEBIRD"}
+          N, DATA_START = 20, date(2021, 12, 1)
+          RANK_DAYS = [date(2022, 12, 25) + timedelta(n) for n in range(7)]
+          S3 = "https://s3-ap-northeast-1.amazonaws.com/data.binance.vision"
+          PREFIX = "data/futures/um/daily/metrics/"
+          ROOT = "https://data.binance.vision/" + PREFIX
+
+          def http(url):
+              for _ in range(4):
+                  try:
+                      with urllib.request.urlopen(url, timeout=60) as r:
+                          return r.read()
+                  except urllib.error.HTTPError as e:
+                      if e.code == 404:
+                          return None
+                  except Exception:
+                      pass
+              return None
+
+          syms, marker = [], ""
+          while True:
+              url = f"{S3}?delimiter=/&prefix={PREFIX}" + (f"&marker={quote(marker, safe='/')}" if marker else "")
+              xml = (http(url) or b"").decode()
+              found = re.findall(r"<Prefix>" + re.escape(PREFIX) + r"([^<]+)/</Prefix>", xml)
+              syms += found
+              if "<IsTruncated>true</IsTruncated>" in xml and found:
+                  marker = PREFIX + found[-1] + "/"
+              else:
+                  break
+
+          cands = []
+          for s in sorted(set(syms)):
+              if not s.endswith("USDT") or "_" in s or not s.isalnum():
+                  continue
+              base = s[:-4]
+              if s in ORIG or not base or base in STABLE or base in INDEX or base[0].isdigit():
+                  continue
+              cands.append(s)
+          print(f"{len(set(syms))} symbols in the archive (including delisted), {len(cands)} candidates after filters")
+
+          def oi_usd(sym):
+              vals = []
+              for d in RANK_DAYS:
+                  raw = http(f"{ROOT}{sym}/{sym}-metrics-{d:%Y-%m-%d}.zip")
+                  if not raw:
+                      continue
+                  z = zipfile.ZipFile(io.BytesIO(raw))
+                  lines = z.read(z.namelist()[0]).decode().splitlines()
+                  if not lines:
+                      continue
+                  hdr = lines[0].split(",")
+                  i = hdr.index("sum_open_interest_value") if "sum_open_interest_value" in hdr else 3
+                  for ln in (lines[1:] if hdr[0] == "create_time" else lines):
+                      p = ln.split(",")
+                      try:
+                          vals.append(float(p[i]))
+                      except (ValueError, IndexError):
+                          pass
+              return sym, (sum(vals) / len(vals) if vals else 0.0), len(vals)
+
+          with cf.ThreadPoolExecutor(16) as ex:
+              res = [r for r in ex.map(oi_usd, cands) if r[2] > 0]
+          res.sort(key=lambda r: -r[1])
+          chosen = [r[0] for r in res[:N]]
+          rows = ["rank,symbol,avg_oi_usd_m_25_31_dec_2022,rows,selected"]
+          for k, (s, v, n) in enumerate(res, 1):
+              rows.append(f"{k},{s},{v / 1e6:.1f},{n},{s in chosen}")
+          for ln in rows[:30]:
+              print(ln)
+          with open("data/universe_pit_candidates.csv", "w") as f:
+              f.write("\n".join(rows) + "\n")
+          with open(OUT, "w") as f:
+              f.write("# Frozen point-in-time universe: top 20 Binance USDT perps by average OI (USD) over 25-31 Dec 2022,\n")
+              f.write("# from the full archive including since-delisted symbols; original 10, stablecoins, index and multiplier symbols excluded.\n")
+              for s in chosen:
+                  f.write(f"{s},{DATA_START}\n")
+          existing = set()
+          if os.path.exists("data/universe.txt"):
+              existing = {ln.split(",")[0].strip() for ln in open("data/universe.txt") if ln.strip() and not ln.startswith("#")}
+          add = [s for s in chosen if s not in existing]
+          if add:
+              with open("data/universe.txt", "a") as f:
+                  f.write("# appended for the point-in-time test (data download only)\n")
+                  for s in add:
+                      f.write(f"{s},{DATA_START}\n")
+          print(f"selected {len(chosen)}: {' '.join(chosen)}")
+          print(f"added to the download list: {len(add)} {' '.join(add)}")
+          EOF
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/universe_pit.txt data/universe_pit_candidates.csv data/universe.txt 2>/dev/null || true
+          git commit -m "Frozen point-in-time universe" || echo "No changes"
+          git pull --rebase
+          git push
