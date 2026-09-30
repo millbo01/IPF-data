@@ -8,7 +8,7 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 240
+    timeout-minutes: 300
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -21,13 +21,25 @@ jobs:
           import concurrent.futures as cf
           from datetime import date, datetime, timedelta, timezone
 
-          COINS = ["BTCUSDT", "ETHUSDT", "SOLUSDT", "BNBUSDT", "XRPUSDT",
-                   "DOGEUSDT", "ADAUSDT", "AVAXUSDT", "LINKUSDT", "LTCUSDT"]
+          DEFAULT = ["BTCUSDT", "ETHUSDT", "SOLUSDT", "BNBUSDT", "XRPUSDT",
+                     "DOGEUSDT", "ADAUSDT", "AVAXUSDT", "LINKUSDT", "LTCUSDT"]
           START = date(2020, 9, 1)
           ROOT = "https://data.binance.vision/data/futures/um"
           LAST = date.today() - timedelta(days=2)
           POOL = cf.ThreadPoolExecutor(16)
           errors = []
+
+          def universe():
+              coins = {}
+              if os.path.exists("data/universe.txt"):
+                  for ln in open("data/universe.txt"):
+                      p = [x.strip() for x in ln.split(",")]
+                      if p[0] and not p[0].startswith("#"):
+                          coins[p[0]] = max(START, date.fromisoformat(p[1])) if len(p) > 1 and p[1] else START
+              return coins or {c: START for c in DEFAULT}
+
+          COINS = universe()
+          print(f"universe: {len(COINS)} coins", flush=True)
 
           def fetch(url):
               for _ in range(4):
@@ -55,16 +67,17 @@ jobs:
                   with open(path, "w") as f:
                       f.write(header + "\n" + "\n".join(rows) + "\n")
               note = f" NOT WRITTEN, {len(errs)} errors, rerun" if errs else ""
-              print(f"{kind} {coin} {year}: rows={len(rows)}{note}", flush=True)
+              if rows or errs:
+                  print(f"{kind} {coin} {year}: rows={len(rows)}{note}", flush=True)
 
-          def months(year):
-              m0 = START.month if year == START.year else 1
+          def months(year, st):
+              m0 = st.month if year == st.year else 1
               m1 = LAST.month if year == LAST.year else 12
               return [date(year, m, 1) for m in range(m0, m1 + 1)]
 
-          def days_in(ms):
+          def days_in(ms, st):
               nxt = date(ms.year + (ms.month == 12), ms.month % 12 + 1, 1)
-              d, out = max(ms, START), []
+              d, out = max(ms, st), []
               while d < nxt and d <= LAST:
                   out.append(d)
                   d += timedelta(days=1)
@@ -99,12 +112,12 @@ jobs:
                   rows.append(",".join(vals))
               return rows
 
-          for coin in COINS:
-              for year in range(START.year, LAST.year + 1):
+          for coin, st in COINS.items():
+              for year in range(st.year, LAST.year + 1):
                   path = f"data/metrics/{coin}_{year}.csv"
                   if year < LAST.year and os.path.exists(path):
                       continue
-                  a, b = max(START, date(year, 1, 1)), min(LAST, date(year, 12, 31))
+                  a, b = max(st, date(year, 1, 1)), min(LAST, date(year, 12, 31))
                   days = [a + timedelta(n) for n in range((b - a).days + 1)]
                   urls = [f"{ROOT}/daily/metrics/{coin}/{coin}-metrics-{d:%Y-%m-%d}.zip" for d in days]
                   res = list(POOL.map(fetch, urls))
@@ -127,12 +140,12 @@ jobs:
                   out.append(",".join([t, f8(p[1]), f8(p[2]), f8(p[3]), f8(p[4]), f8(p[5]), p[8], f8(p[9])]))
               return out
 
-          for coin in COINS:
-              for year in range(START.year, LAST.year + 1):
+          for coin, st in COINS.items():
+              for year in range(st.year, LAST.year + 1):
                   path = f"data/klines5m/{coin}_{year}.csv"
                   if year < LAST.year and os.path.exists(path):
                       continue
-                  ms = months(year)
+                  ms = months(year, st)
                   murls = [f"{ROOT}/monthly/klines/{coin}/5m/{coin}-5m-{m:%Y-%m}.zip" for m in ms]
                   mres = list(POOL.map(fetch, murls))
                   rows, errs = [], []
@@ -142,7 +155,7 @@ jobs:
                       elif r == "ERR":
                           errs.append(u)
                       else:
-                          durls = [f"{ROOT}/daily/klines/{coin}/5m/{coin}-5m-{d:%Y-%m-%d}.zip" for d in days_in(m)]
+                          durls = [f"{ROOT}/daily/klines/{coin}/5m/{coin}-5m-{d:%Y-%m-%d}.zip" for d in days_in(m, st)]
                           for du, dr in zip(durls, list(POOL.map(fetch, durls))):
                               if isinstance(dr, list):
                                   rows += parse_klines(dr)
@@ -171,8 +184,8 @@ jobs:
                       pass
               return out
 
-          for coin in COINS:
-              ms = [m for y in range(START.year, LAST.year + 1) for m in months(y)]
+          for coin, st in COINS.items():
+              ms = [m for y in range(st.year, LAST.year + 1) for m in months(y, st)]
               urls = [f"{ROOT}/monthly/fundingRate/{coin}/{coin}-fundingRate-{m:%Y-%m}.zip" for m in ms]
               res = list(POOL.map(fetch, urls))
               errs = [u for u, r in zip(urls, res) if r == "ERR"]
