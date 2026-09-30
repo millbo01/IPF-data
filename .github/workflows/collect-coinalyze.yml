@@ -39,7 +39,7 @@ jobs:
                           return json.loads(r.read().decode())
                   except urllib.error.HTTPError as e:
                       if e.code == 429:
-                          time.sleep(int(e.headers.get("Retry-After", "10")) + 1)
+                          time.sleep(float(e.headers.get("Retry-After", "10")) + 1)
                           continue
                       if e.code in (400, 401):
                           print(f"HTTP {e.code} on {path}")
@@ -75,7 +75,7 @@ jobs:
                       chunk = syms[i:i + 20]
                       res = get(ep, symbols=",".join(chunk), interval=iv, convert_to_usd="true",
                                 **{"from": a, "to": a + 86399})
-                      time.sleep(1.6 * len(chunk))
+                      time.sleep(2.0 * len(chunk))
                       if res is None:
                           ok = False
                           break
