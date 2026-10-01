@@ -46,16 +46,23 @@ The repo stores source references and rules, not copies of FTSE Russell constitu
 
 No year may be replaced.
 
-## Event universe
-Parse every unique ordinary ticker that can be recovered from the official final PDF tables.
+## Event universe and deterministic QC sample
+Parse every unique ordinary ticker that can be recovered from each official final PDF table.
 
 Direction sign:
 - addition = +1
 - deletion = -1
 
-If QuantConnect cannot resolve a ticker or does not provide sufficient minute history for the required windows, report the observation as unavailable and do not replace it.
+For runtime efficiency, test a deterministic maximum of **60 additions and 60 deletions per year**. For each year/action independently:
+1. compute `SHA256("RUS1|<year>|<action>|<ticker>")`;
+2. sort ascending by the hexadecimal digest;
+3. retain the first 60 tickers, or all tickers if fewer than 60 exist.
 
-Do not exclude observations based on their realised returns.
+This sample rule is frozen before outcomes and is independent of prices, volume, company size, sector or later QC availability.
+
+If QuantConnect cannot resolve a sampled ticker or does not provide sufficient minute history for the required windows, report the observation as unavailable and do not replace it with another ticker.
+
+Do not exclude observations based on realised returns.
 
 ## Price-data construction
 Use QuantConnect US equity minute history plus SPY as market control.
@@ -129,7 +136,7 @@ For each year and pooled BUILD report, for each of `volume_excess`, `pressure_ex
 - addition median;
 - deletion median.
 
-Also report data coverage from source ticker -> QC-resolved -> complete required windows.
+Also report data coverage from source ticker -> sampled -> QC-resolved -> complete required windows.
 
 ## Frozen gates
 ### A. Mechanism gate — closing concentration
@@ -165,6 +172,8 @@ After outcomes are seen, do not:
 - change the event years;
 - substitute preliminary membership lists for final lists;
 - alter the 30-minute windows;
+- alter the 60-per-action hash sampling rule;
+- replace unresolved/missing sampled tickers;
 - select stocks based on realised returns;
 - change the placebo week;
 - introduce market-cap/ADV thresholds to rescue the result;
