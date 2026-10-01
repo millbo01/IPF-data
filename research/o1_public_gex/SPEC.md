@@ -1,7 +1,7 @@
 # O1 — Public SPX GEX as a regime indicator
 
 ## Status
-Frozen before outcome inspection.
+Frozen before outcome inspection; data-access repair recorded after incomplete extraction and before repaired outcomes are inspected.
 
 ## Research role
 O1 is an **indicator test**, not a dealer-inventory measurement and not a standalone trading backtest.
@@ -20,8 +20,7 @@ After SPX has already moved during the first ~30 minutes of the regular session,
 Use both standard SPX and SPXW daily option universes.
 
 For each target date:
-- retrieve each option universe over a widened bracket `[date-1 day, date+1 day]`;
-- retain rows labelled with the target date only;
+- retrieve each option universe over a widened bracket and retain rows labelled with the target date only;
 - keep contracts with positive gamma and positive open interest and a decodable call/put right;
 - de-duplicate symbols across SPX/SPXW before aggregation if any overlap occurs;
 - call sign = +1, put sign = -1;
@@ -30,8 +29,20 @@ For each target date:
 
 This is explicitly a **public static GEX proxy**. Open interest does not reveal actual dealer inventory, so no claim is made that the sign equals observed dealer gamma.
 
+## Data-access repair
+The first full extraction used `[date-1 calendar day, date+1 day]`. It recovered most dates but systematically missed Monday targets and sessions immediately following market holidays because the bracket did not reach the preceding trading session.
+
+Before inspecting any repaired outcomes, the retrieval rule is therefore repaired as follows:
+- for dates already successfully extracted, keep the existing observations unchanged;
+- for dates that failed specifically with `No target-date option-universe rows`, retry only those dates using `[date-4 calendar days, date+1 day]`;
+- after retrieval, still retain **only rows labelled with the original frozen target date**;
+- do not replace frozen dates and do not alter any predictor, outcome, threshold, regression, matched comparison or pass/fail rule;
+- dates failing for another reason remain failed unless the reason is independently identified as a data-access issue.
+
+This is a retrieval-only repair intended to recover the same frozen observations across weekend/holiday boundaries.
+
 ## Timing and look-ahead
-QuantConnect daily option-universe Greeks/open interest for a row dated `t` are used as information available for the following session. The retrieval widening is a data-access repair only; rows are filtered to the target date.
+QuantConnect daily option-universe Greeks/open interest for a row dated `t` are used as information available for the following session. Retrieval widening is a data-access repair only; rows are filtered to the target date.
 
 SPX minute timestamps in QuantBook display with an observed one-hour offset in this environment. To avoid hard-coding timezone corrections, morning outcomes are defined by regular-session-relative bar positions rather than displayed clock labels.
 
