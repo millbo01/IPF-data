@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import csv
 import io
 import json
 import re
@@ -13,9 +12,6 @@ from bs4 import BeautifulSoup
 
 
 OUT_ROOT = Path("data/vix_etp_flow")
-
-PROSHARES_HOLDINGS = "https://accounts.profunds.com/etfdata/psdlyhld.csv"
-PROSHARES_TARGETS = {"UVXY", "VIXY", "SVXY"}
 
 PROSHARES_PAGES = {
     "UVXY": "https://www.proshares.com/our-etfs/strategic/uvxy",
@@ -82,27 +78,22 @@ def parse_money(text: str) -> float | None:
 
 def extract_page_meta(ticker: str, provider: str, raw_html: str) -> dict:
     text = flat_text(raw_html)
-    meta: dict = {
-        "ticker": ticker,
-        "provider": provider,
-    }
+    meta: dict = {"ticker": ticker, "provider": provider}
 
-    patterns = [
+    for p in [
         r"Holdings\s+as of\s+(\d{1,2}/\d{1,2}/\d{4})",
         r"Top Holdings.*?Data as of\s+(\d{1,2}/\d{1,2}/\d{4})",
         r"Data as of\s+(\d{1,2}/\d{1,2}/\d{4})",
-    ]
-    for p in patterns:
+    ]:
         m = re.search(p, text, flags=re.I)
         if m:
             meta["holdings_date"] = m.group(1)
             break
 
-    patterns = [
+    for p in [
         r"Net Assets as of\s+\d{1,2}/\d{1,2}/\d{4}\s+\$?([\d,]+(?:\.\d+)?)",
         r"Net Assets\s+\$?([\d,]+(?:\.\d+)?)",
-    ]
-    for p in patterns:
+    ]:
         m = re.search(p, text, flags=re.I)
         if m:
             meta["net_assets"] = parse_money(m.group(1))
@@ -112,82 +103,18 @@ def extract_page_meta(ticker: str, provider: str, raw_html: str) -> dict:
     if m:
         meta["nav"] = parse_money(m.group(1))
 
-    m = re.search(
-        r"Shares Outstanding\s+([\d,]+(?:\.\d+)?)",
-        text,
-        flags=re.I,
-    )
+    m = re.search(r"Shares Outstanding\s+([\d,]+(?:\.\d+)?)", text, flags=re.I)
     if m:
         meta["shares_outstanding"] = parse_money(m.group(1))
 
     return meta
 
 
-def find_ticker_column(df: pd.DataFrame, tickers: set[str]) -> str:
-    best = None
-    best_hits = -1
-    for c in df.columns:
-        vals = df[c].astype(str).str.strip().str.upper()
-        hits = int(vals.isin(tickers).sum())
-        if hits > best_hits:
-            best = c
-            best_hits = hits
-    if best is None or best_hits <= 0:
-        raise RuntimeError("Could not identify ticker column")
-    return best
-
-
-def parse_csv_after_header(raw: str) -> pd.DataFrame:
-    """
-    Provider CSVs sometimes begin with metadata rows whose field count differs
-    from the holdings table. Locate the real header instead of assuming line 1.
-    """
-    lines = raw.splitlines()
-    candidates = []
-
-    for i, line in enumerate(lines[:80]):
-        try:
-            fields = next(csv.reader([line]))
-        except Exception:
-            continue
-
-        norm = [normalize_name(x).lower() for x in fields]
-        joined = " | ".join(norm)
-
-        score = 0
-        if "ticker" in joined:
-            score += 2
-        if "description" in joined:
-            score += 2
-        if "shares" in joined or "contracts" in joined:
-            score += 1
-        if "market value" in joined or "exposure value" in joined:
-            score += 1
-        if len(fields) >= 6:
-            score += 1
-
-        if score >= 4:
-            candidates.append((score, i))
-
-    if not candidates:
-        raise RuntimeError("Could not locate holdings CSV header")
-
-    _, header_i = max(candidates)
-    payload = "\n".join(lines[header_i:])
-
-    return pd.read_csv(
-        io.StringIO(payload),
-        dtype=str,
-        keep_default_na=False,
-        engine="python",
-    )
-
-
 def table_score(df: pd.DataFrame) -> int:
     cols = " | ".join(normalize_name(c).lower() for c in df.columns)
     vals = " ".join(
         normalize_name(x).lower()
-        for x in df.astype(str).head(30).values.flatten()
+        for x in df.astype(str).head(40).values.flatten()
     )
     text = cols + " " + vals
 
@@ -218,10 +145,6 @@ def best_holdings_table(raw_html: str) -> pd.DataFrame:
 
 
 def parse_excelish_response(content: bytes) -> pd.DataFrame:
-    """
-    Volatility Shares labels its downloadable holdings as Excel. Depending on
-    provider/backend, the payload can be xls/xlsx/HTML/CSV. Sniff and try each.
-    """
     errors = []
 
     for engine in (None, "xlrd", "openpyxl"):
@@ -270,15 +193,12 @@ def parse_excelish_response(content: bytes) -> pd.DataFrame:
 def add_common_columns(
     df: pd.DataFrame,
     provider: str,
-    ticker: str | None,
+    ticker: str,
     source_url: str,
     holdings_date: str | None,
 ) -> pd.DataFrame:
     out = clean_columns(df)
-
-    if ticker is not None:
-        out.insert(0, "ticker", ticker)
-
+    out.insert(0, "ticker", ticker)
     out.insert(0, "provider", provider)
     out["source_url"] = source_url
     out["source_holdings_date"] = holdings_date or ""
@@ -286,34 +206,44 @@ def add_common_columns(
 
 
 def collect_proshares(day_dir: Path) -> dict:
-    # Primary path: official global holdings CSV, but locate its real header
-    # after provider metadata/preamble rows.
-    raw = get_text(PROSHARES_HOLDINGS)
-    df = parse_csv_after_header(raw)
+    """Collect each target fund from its official product page.
 
-    ticker_col = find_ticker_column(df, PROSHARES_TARGETS)
-    tickers = df[ticker_col].astype(str).str.strip().str.upper()
-    out = df.loc[tickers.isin(PROSHARES_TARGETS)].copy()
-
-    if out.empty:
-        raise RuntimeError("ProShares target rows were empty")
-
-    out.insert(0, "provider", "ProShares")
-    out["source_url"] = PROSHARES_HOLDINGS
-    out.to_csv(day_dir / "proshares_holdings.csv", index=False)
-
-    # Product-page metadata is cheap and useful for prospective AUM context.
+    The aggregate ProShares CSV has provider-format drift and does not reliably
+    expose fund identifiers in a stable table. The public product pages expose
+    the exact holdings table we need, so collect each fund independently.
+    """
+    hold_frames = []
     product_meta = []
-    page_errors = []
+    product_errors = []
 
     for ticker, url in PROSHARES_PAGES.items():
         try:
             page_html = get_text(url)
             meta = extract_page_meta(ticker, "ProShares", page_html)
             meta["source"] = url
+
+            holdings = best_holdings_table(page_html)
+            holdings = add_common_columns(
+                holdings,
+                "ProShares",
+                ticker,
+                url,
+                meta.get("holdings_date"),
+            )
+
+            meta["holdings_rows"] = int(len(holdings))
+            hold_frames.append(holdings)
             product_meta.append(meta)
         except Exception as exc:
-            page_errors.append(f"{ticker}: {type(exc).__name__}: {exc}")
+            product_errors.append(f"{ticker}: {type(exc).__name__}: {exc}")
+
+    if not hold_frames:
+        raise RuntimeError(
+            "No ProShares products succeeded: " + " | ".join(product_errors)
+        )
+
+    all_holdings = pd.concat(hold_frames, ignore_index=True, sort=False)
+    all_holdings.to_csv(day_dir / "proshares_holdings.csv", index=False)
 
     pd.DataFrame(product_meta).to_csv(
         day_dir / "proshares_product_meta.csv",
@@ -321,11 +251,9 @@ def collect_proshares(day_dir: Path) -> dict:
     )
 
     return {
-        "source": PROSHARES_HOLDINGS,
-        "rows": int(len(out)),
-        "tickers": sorted(set(out[ticker_col].astype(str).str.strip().str.upper())),
-        "product_meta_rows": int(len(product_meta)),
-        "product_meta_errors": page_errors,
+        "products": product_meta,
+        "product_errors": product_errors,
+        "holdings_rows": int(len(all_holdings)),
     }
 
 
@@ -344,7 +272,6 @@ def collect_vs_product(
         r = get_response(download_url)
         holdings = parse_excelish_response(r.content)
     except Exception as download_exc:
-        # Fallback to visible product page if the download format changes.
         try:
             holdings = best_holdings_table(page_html)
             source_used = page_url
@@ -416,7 +343,7 @@ def main() -> None:
         "snapshot_utc": now.isoformat(),
         "snapshot_date": snapshot_date,
         "purpose": "Prospective public-data archive for VIX ETP mechanical-flow research",
-        "collector_version": 2,
+        "collector_version": 3,
     }
 
     errors = []
@@ -438,8 +365,6 @@ def main() -> None:
         encoding="utf-8",
     )
 
-    # Partial provider success is enough to archive the day. Product-level
-    # failures are recorded rather than throwing away usable data.
     if "proshares" not in manifest and "volatilityshares" not in manifest:
         raise RuntimeError(
             "All VIX ETP public-data sources failed: " + " | ".join(errors)
