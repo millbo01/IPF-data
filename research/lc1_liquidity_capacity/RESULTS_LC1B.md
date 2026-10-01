@@ -2,11 +2,12 @@
 
 ## Status
 
-**Reversal-mechanism gate: PASS (2/3 markets).**
+**Reversal-mechanism gate: PASS (2/3 markets).**  
+**Trading candidate: KILLED by economic triage.**
 
-- ES: PASS
-- CL: PASS under the frozen gate
-- ZN: FAIL
+- ES: mechanism PASS, exact trade FAIL economically across build/holdout
+- CL: mechanism PASS under the frozen gate, not advanced after ES economic failure
+- ZN: mechanism FAIL
 
 LC1-B tested whether, after a high pressure / low-capacity displacement, reversal is stronger when same-direction pressure decays and contra-side displayed capacity restores during the following 30 seconds.
 
@@ -46,9 +47,7 @@ LC1-B tested whether, after a high pressure / low-capacity displacement, reversa
 
 The frozen gate did not require the clustered regression p-value itself to be below 0.05; it required positive regression and matched directions plus the pre-specified leave-one-day-out robustness rule.
 
-## ES detail
-
-ES is the strongest candidate for economic follow-up.
+## ES detail before economic triage
 
 Build primary 5m:
 - interaction: -0.2976 bp
@@ -64,12 +63,7 @@ Holdout joint-release absolute mean reversal by stress tercile:
 - T1: +2.1999 bp
 - T2: +0.4751 bp
 
-Holdout stalled means:
-- T0: -0.7017 bp
-- T1: -0.0038 bp
-- T2: +0.8669 bp
-
-ES therefore passes the frozen gate robustly, although the regression interaction itself is imprecise and the highest-stress tercile does not show the largest matched advantage.
+These mechanism comparisons justified one cheap in-memory economic screen, but not further data extraction.
 
 ## ZN detail
 
@@ -88,26 +82,52 @@ CL formally passes the frozen gate:
 - matched difference +1.2699 bp
 - 10/12 leave-one-day-out variants retain both positive directions
 
-However, absolute 5-minute joint-release reversal is less economically convincing than ES and is non-monotone across stress terciles:
-- T0: +0.1468 bp
-- T1: +0.6009 bp
-- T2: +1.8785 bp
+However, build matched difference was negative (-2.4749 bp) while holdout turned positive. CL remains supporting mechanism evidence but is not advanced after the ES economic screen fails.
 
-The build matched difference was negative (-2.4749 bp), while the holdout turned positive. CL is therefore retained as supporting evidence but is not the first market for an execution-feasibility screen.
+## ES economic triage — no new history requests
 
-## Adjudication
+The exact already-defined ES trading candidate was evaluated using the LC1-B panel already in memory.
 
-LC1-B survives its frozen cross-market gate: ES and CL pass, ZN fails.
+Signal:
+- ES only
+- high-stress = true
+- joint release = restoration z > 0 and pressure-decay z > 0
+- fade original P0 direction at t+60s
+- exit 5 minutes later
+- take only the first eligible signal while flat; ignore overlapping signals
 
-The practical promotion decision is narrower than the formal mechanism gate. ES is advanced first because it combines:
+### Raw eligible events
 
-1. a validated LC1-A immediate capacity effect;
-2. positive absolute 5-minute reversal after joint release in every holdout stress tercile;
-3. a positive holdout matched difference;
-4. 12/12 leave-one-day-out robustness.
+| Split | Events | Mean gross bp | Median gross bp | Hit rate |
+|---|---:|---:|---:|---:|
+| Build | 135 | -0.8779 | -0.4900 | 45.93% |
+| Holdout | 144 | +1.2213 | +0.8646 | 52.08% |
 
-CL remains secondary because its build/holdout behavior is less stable and the absolute reversal magnitude is likely more vulnerable to transaction costs. ZN is stopped.
+### Non-overlapping executable stream
 
-## Next step
+| Split | Trades | Trades/sample day | Mean gross bp/trade | Median bp | Hit rate | Gross bp/sample day | Positive-day share |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| Build | 69 | 3.000 | -0.2251 | +0.4188 | 52.17% | -0.6753 | 30.43% |
+| Holdout | 62 | 5.167 | +2.4782 | +1.7958 | 58.06% | +12.8040 | 83.33% |
 
-Before any further tick-data extraction, run an in-memory ES-only economic feasibility screen using the already extracted LC1-B panel. Measure signal count, overlap, gross 5-minute reversal distribution, break-even round-trip cost in basis points, and a simple non-overlapping event stream. Only if the gross edge leaves credible room for real execution costs should additional tick extraction or venue-specific backtesting be performed.
+Build leave-one-day-out mean expectancy was positive in only 1/23 versions; the minimum LOO mean was -0.9869 bp/trade and maximum +0.0771 bp/trade.
+
+Holdout leave-one-day-out mean expectancy was positive in 12/12 versions; the minimum LOO mean was +1.9993 bp/trade and maximum +2.7362 bp/trade.
+
+The exact candidate therefore exhibits a severe build/holdout regime split. Crucially, the build stream has **negative gross expectancy before any transaction cost**.
+
+## Final adjudication
+
+LC1-B is retained as a **conditional reversal mechanism result**, especially in ES and CL, but it is **not promoted as a trading strategy**.
+
+The exact executable ES rule fails the economic requirement because build expectancy is negative before transaction costs. Strong 2026 holdout performance is not sufficient justification to tune the already-opened sample.
+
+No further QuantConnect tick extraction, parameter optimization, venue research, or live implementation should be performed for this LC1 trading rule on the same sample.
+
+## Durable LC1 conclusion
+
+LC1-A remains the strongest result:
+
+> For comparable aggressive flow, lower pre-existing contra-side capacity produces larger immediate price displacement across ES, ZN and CL.
+
+LC1-B adds evidence that restoration/pressure decay can condition later reversal in some markets, but that conditional relationship did not translate into a stable positive-expectancy trading rule across build and holdout.
