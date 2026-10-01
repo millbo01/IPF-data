@@ -1,8 +1,41 @@
 {
-  "snapshot_utc": "2026-10-01T13:40:00.738827+00:00",
+  "snapshot_utc": "2026-10-01T13:49:36.482183+00:00",
   "snapshot_date": "2026-10-01",
   "purpose": "Prospective public-data archive for VIX ETP mechanical-flow research",
-  "collector_version": 2,
+  "collector_version": 3,
+  "proshares": {
+    "products": [
+      {
+        "ticker": "UVXY",
+        "provider": "ProShares",
+        "holdings_date": "9/30/2026",
+        "net_assets": 273443879.0,
+        "nav": 17.18,
+        "source": "https://www.proshares.com/our-etfs/strategic/uvxy",
+        "holdings_rows": 4
+      },
+      {
+        "ticker": "VIXY",
+        "provider": "ProShares",
+        "holdings_date": "9/30/2026",
+        "net_assets": 220552104.0,
+        "nav": 16.85,
+        "source": "https://www.proshares.com/our-etfs/strategic/vixy",
+        "holdings_rows": 4
+      },
+      {
+        "ticker": "SVXY",
+        "provider": "ProShares",
+        "holdings_date": "9/30/2026",
+        "net_assets": 259644839.0,
+        "nav": 8.62,
+        "source": "https://www.proshares.com/our-etfs/strategic/svxy",
+        "holdings_rows": 4
+      }
+    ],
+    "product_errors": [],
+    "holdings_rows": 12
+  },
   "volatilityshares": {
     "products": [
       {
@@ -31,7 +64,5 @@
     "product_errors": [],
     "holdings_rows": 13
   },
-  "errors": [
-    "ProShares: RuntimeError: Could not identify ticker column"
-  ]
+  "errors": []
 }
