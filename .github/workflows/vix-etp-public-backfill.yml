@@ -26,10 +26,13 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install pandas requests beautifulsoup4 lxml
+          pip install pandas numpy requests beautifulsoup4 lxml
 
       - name: Backfill official public history
         run: python research/vix_etp_flow/backfill_public_history.py
+
+      - name: Build daily forced-flow signal
+        run: python research/vix_etp_flow/build_proshares_signal.py
 
       - name: Commit backfill to research branch
         shell: bash
