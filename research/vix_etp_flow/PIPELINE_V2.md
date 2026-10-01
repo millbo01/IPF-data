@@ -31,11 +31,11 @@ Receiving capacity should be measured in the relevant VIX-futures close window. 
 ### A. Prospective daily provider archive
 Official public product pages / holdings downloads are collected daily. This is append-only and is the cleanest source for current holdings, AUM/NAV and shares outstanding.
 
-### B. Historical AUM/NAV backfill
-Use official historical NAV downloads where available. Historical holdings are not silently imputed from current holdings. Any daily AUM reconstructed from NAV and shares outstanding must carry provenance and a quality flag.
+### B. Historical ProShares AUM/NAV backfill
+Use the official per-fund ProShares historical NAV CSVs. These files include daily NAV, shares outstanding and assets under management, so UVXY/VIXY/SVXY can be reconstructed directly rather than estimated from market price.
 
-### C. SEC N-PORT anchor layer
-Use public SEC N-PORT data only as periodic historical holdings/exposure anchors. N-PORT is not treated as daily holdings. It can validate product exposure, contract identity and gross notional around filing dates.
+### C. Volatility Shares historical anchor layer
+UVIX/SVIX are commodity-pool products, not N-PORT funds. Do **not** use SEC Form N-PORT as their historical holdings source. Use official Volatility Shares monthly account statements plus VS Trust SEC 10-Q/10-K filings as periodic holdings/exposure anchors. Any daily interpolation/reconstruction between anchors must be explicit and quality-flagged.
 
 ### D. Market receiving-capacity layer
 Ultimately use VX futures price/volume and, where available, intraday near-close volume/depth. ES/SPX outcome data are kept separate from the signal construction.
