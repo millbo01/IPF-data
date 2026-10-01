@@ -3,6 +3,8 @@
 ## Status
 Frozen before price/volume outcome inspection.
 
+**Pre-outcome operational amendment (2026-10-01):** the originally frozen 60-per-action SHA-256 sample required parsing the full FTSE Russell PDFs inside QuantConnect. QuantConnect's outbound proxy returned HTTP 403 for `lseg.com` before any RUS1 price/volume outcomes were observed. To remove that network dependency, the sample rule was amended before outcome inspection to the first 30 security rows in each official final additions/deletions table, transcribed outside QuantConnect and frozen in `SAMPLE.csv`. No market data were inspected before this amendment.
+
 ## Research role
 RUS1 separates three questions:
 1. **Mechanism validity** — does annual Russell reconstitution concentrate abnormal trading into the closing auction?
@@ -38,7 +40,7 @@ Use only FTSE Russell final Russell 3000 addition/deletion PDFs:
 - additions: https://www.lseg.com/content/dam/ftse-russell/en_us/documents/other/ru3000-additions-20250627.pdf
 - deletions: https://www.lseg.com/content/dam/ftse-russell/en_us/documents/other/ru3000-deletions-20250627.pdf
 
-The repo stores source references and rules, not copies of FTSE Russell constituent lists.
+`SAMPLE.csv` stores only the frozen ticker sample and source-row ranks; it does not reproduce the constituent PDFs.
 
 ## Temporal split
 - **BUILD:** 2023 and 2024.
@@ -46,21 +48,16 @@ The repo stores source references and rules, not copies of FTSE Russell constitu
 
 No year may be replaced.
 
-## Event universe and deterministic QC sample
-Parse every unique ordinary ticker that can be recovered from each official final PDF table.
-
+## Event universe and amended deterministic QC sample
 Direction sign:
 - addition = +1
 - deletion = -1
 
-For runtime efficiency, test a deterministic maximum of **60 additions and 60 deletions per year**. For each year/action independently:
-1. compute `SHA256("RUS1|<year>|<action>|<ticker>")`;
-2. sort ascending by the hexadecimal digest;
-3. retain the first 60 tickers, or all tickers if fewer than 60 exist.
+For each year/action independently, retain the **first 30 security rows in the official final FTSE Russell table**, in published table order. These 180 event rows are frozen in `SAMPLE.csv` before any price/volume outcome inspection.
 
-This sample rule is frozen before outcomes and is independent of prices, volume, company size, sector or later QC availability.
+This amended sample rule is deterministic and independent of prices, volume, company size, realised returns, later QC availability, or analyst discretion. It is not a random sample; results therefore apply to this pre-specified slice of the official lists and should not be silently generalized to every Russell change.
 
-If QuantConnect cannot resolve a sampled ticker or does not provide sufficient minute history for the required windows, report the observation as unavailable and do not replace it with another ticker.
+If QuantConnect cannot resolve a frozen ticker or does not provide sufficient minute history for the required windows, report the observation as unavailable and do not replace it with another ticker.
 
 Do not exclude observations based on realised returns.
 
@@ -136,7 +133,7 @@ For each year and pooled BUILD report, for each of `volume_excess`, `pressure_ex
 - addition median;
 - deletion median.
 
-Also report data coverage from source ticker -> sampled -> QC-resolved -> complete required windows.
+Also report data coverage from frozen ticker -> QC-resolved -> complete required windows.
 
 ## Frozen gates
 ### A. Mechanism gate — closing concentration
@@ -172,8 +169,8 @@ After outcomes are seen, do not:
 - change the event years;
 - substitute preliminary membership lists for final lists;
 - alter the 30-minute windows;
-- alter the 60-per-action hash sampling rule;
-- replace unresolved/missing sampled tickers;
+- alter the amended first-30-per-action sample;
+- replace unresolved/missing frozen tickers;
 - select stocks based on realised returns;
 - change the placebo week;
 - introduce market-cap/ADV thresholds to rescue the result;
