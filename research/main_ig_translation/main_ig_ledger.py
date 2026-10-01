@@ -9,6 +9,8 @@ import io
 import math
 from datetime import date, datetime, timedelta
 
+import pandas as pd
+
 from ipf_engine import Engine, prev_bday, NAN, UNIT_BREAK
 
 START = (2010, 1, 1)
