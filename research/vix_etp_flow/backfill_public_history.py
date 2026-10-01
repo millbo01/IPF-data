@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import csv
 import io
 import re
 from pathlib import Path
@@ -38,6 +37,21 @@ def first_col(cols: list[str], *needles: str) -> str | None:
     return None
 
 
+def exact_col(cols: list[str], normalized_name: str) -> str | None:
+    for c in cols:
+        if norm(c) == normalized_name:
+            return c
+    return None
+
+
+def numeric(s: pd.Series) -> pd.Series:
+    # Provider CSVs have historically used both plain numerics and formatted strings.
+    return pd.to_numeric(
+        s.astype(str).str.replace(r"[^0-9eE+\-.]", "", regex=True),
+        errors="coerce",
+    )
+
+
 def backfill_proshares() -> pd.DataFrame:
     frames = []
     for ticker in PROSHARES:
@@ -48,9 +62,9 @@ def backfill_proshares() -> pd.DataFrame:
 
         df = pd.read_csv(io.BytesIO(r.content))
         cols = list(df.columns)
-        date_col = first_col(cols, "date")
-        nav_col = first_col(cols, "nav")
-        ticker_col = first_col(cols, "ticker")
+        date_col = exact_col(cols, "date") or first_col(cols, "date")
+        nav_col = exact_col(cols, "nav") or first_col(cols, "nav")
+        ticker_col = exact_col(cols, "ticker") or first_col(cols, "ticker")
         shares_col = first_col(cols, "shares", "outstanding")
         aum_col = first_col(cols, "assets", "management") or first_col(cols, "net", "assets")
 
@@ -62,13 +76,16 @@ def backfill_proshares() -> pd.DataFrame:
         out = pd.DataFrame()
         out["date"] = pd.to_datetime(df[date_col], errors="coerce").dt.date
         out["ticker"] = ticker
-        out["nav"] = pd.to_numeric(df[nav_col], errors="coerce") if nav_col else pd.NA
-        out["shares_outstanding"] = pd.to_numeric(df[shares_col], errors="coerce") if shares_col else pd.NA
-        out["aum"] = pd.to_numeric(df[aum_col], errors="coerce")
+        out["nav"] = numeric(df[nav_col]) if nav_col else pd.NA
+        out["shares_outstanding_source"] = numeric(df[shares_col]) if shares_col else pd.NA
+        out["aum"] = numeric(df[aum_col])
         out["source_ticker"] = df[ticker_col].astype(str) if ticker_col else ticker
         out["source_url"] = url
         out["quality"] = "OFFICIAL_PROSHARES_DAILY"
         out = out.dropna(subset=["date", "aum"]).sort_values("date")
+
+        if out.empty:
+            raise RuntimeError(f"{ticker}: parsed zero AUM rows from {cols}")
         frames.append(out)
 
     z = pd.concat(frames, ignore_index=True).sort_values(["date", "ticker"])
@@ -81,34 +98,28 @@ def index_volatilityshares_statements() -> pd.DataFrame:
     soup = BeautifulSoup(r.text, "lxml")
     rows = []
 
+    # Preserve a complete official-page link index. The monthly table often uses
+    # image-only anchors, so assignment to UVIX/SVIX is deliberately conservative.
     for a in soup.find_all("a", href=True):
         href = a["href"]
         text = " ".join(a.stripped_strings)
         blob = (text + " " + href).upper()
-        if "UVIX" not in blob and "SVIX" not in blob:
+        if "download-filings-and-documents" not in href.lower() and not href.lower().endswith(".pdf"):
             continue
-        if not any(x in blob for x in ("STATEMENT", "DOWNLOAD-FILINGS", ".PDF")):
-            continue
-        ticker = "UVIX" if "UVIX" in blob else "SVIX"
+
+        if "UVIX" in blob:
+            ticker = "UVIX"
+        elif "SVIX" in blob:
+            ticker = "SVIX"
+        else:
+            ticker = "UNASSIGNED"
+
         rows.append({
             "ticker": ticker,
             "label": text,
             "url": urljoin(VS_DOCS, href),
-            "quality": "OFFICIAL_VS_STATEMENT_INDEX",
+            "quality": "OFFICIAL_VS_DOCUMENT_INDEX",
         })
-
-    # The page sometimes uses image-only links with ticker context in table cells.
-    # Capture all PDF/download links as a fallback index; parsing/assignment is a later step.
-    if not rows:
-        for a in soup.find_all("a", href=True):
-            href = a["href"]
-            if "download-filings-and-documents" in href.lower() or href.lower().endswith(".pdf"):
-                rows.append({
-                    "ticker": "UNASSIGNED",
-                    "label": " ".join(a.stripped_strings),
-                    "url": urljoin(VS_DOCS, href),
-                    "quality": "OFFICIAL_VS_STATEMENT_INDEX_UNASSIGNED",
-                })
 
     z = pd.DataFrame(rows).drop_duplicates(subset=["ticker", "url"])
     z.to_csv(OUT / "volatilityshares_statement_index.csv", index=False)
@@ -120,8 +131,20 @@ def main() -> None:
     ps = backfill_proshares()
     vs = index_volatilityshares_statements()
     summary = pd.DataFrame([
-        {"dataset": "proshares_daily_aum", "rows": len(ps), "tickers": ",".join(sorted(ps.ticker.unique()))},
-        {"dataset": "volatilityshares_statement_index", "rows": len(vs), "tickers": ",".join(sorted(vs.ticker.astype(str).unique())) if len(vs) else ""},
+        {
+            "dataset": "proshares_daily_aum",
+            "rows": len(ps),
+            "tickers": ",".join(sorted(ps.ticker.unique())),
+            "start": str(ps.date.min()),
+            "end": str(ps.date.max()),
+        },
+        {
+            "dataset": "volatilityshares_statement_index",
+            "rows": len(vs),
+            "tickers": ",".join(sorted(vs.ticker.astype(str).unique())) if len(vs) else "",
+            "start": "",
+            "end": "",
+        },
     ])
     summary.to_csv(OUT / "backfill_summary.csv", index=False)
     print(summary.to_string(index=False))
