@@ -1,0 +1,37 @@
+{
+  "snapshot_utc": "2026-10-01T13:40:00.738827+00:00",
+  "snapshot_date": "2026-10-01",
+  "purpose": "Prospective public-data archive for VIX ETP mechanical-flow research",
+  "collector_version": 2,
+  "volatilityshares": {
+    "products": [
+      {
+        "ticker": "UVIX",
+        "provider": "Volatility Shares",
+        "holdings_date": "10/01/2026",
+        "net_assets": 181935068.93,
+        "nav": 36.57,
+        "shares_outstanding": 4974843.0,
+        "source": "https://www.volatilityshares.com/uvix/",
+        "holdings_rows": 6,
+        "holdings_source": "https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=uvix"
+      },
+      {
+        "ticker": "SVIX",
+        "provider": "Volatility Shares",
+        "holdings_date": "10/01/2026",
+        "net_assets": 139705320.73,
+        "nav": 28.75,
+        "shares_outstanding": 4860000.0,
+        "source": "https://www.volatilityshares.com/svix/",
+        "holdings_rows": 7,
+        "holdings_source": "https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=svix"
+      }
+    ],
+    "product_errors": [],
+    "holdings_rows": 13
+  },
+  "errors": [
+    "ProShares: RuntimeError: Could not identify ticker column"
+  ]
+}
