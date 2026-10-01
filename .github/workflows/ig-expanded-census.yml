@@ -24,8 +24,10 @@ jobs:
       IG_ACCOUNT_ID: ${{ secrets.IG_ACCOUNT_ID }}
 
     steps:
-      - name: Checkout research branch
+      - name: Checkout frozen research branch
         uses: actions/checkout@v4
+        with:
+          ref: research/main-ig-translation
 
       - name: Set up Python
         uses: actions/setup-python@v5
