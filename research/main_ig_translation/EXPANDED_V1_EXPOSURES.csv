@@ -1,0 +1,68 @@
+exposure_id,family,qc_candidates,ig_search_terms,benchmark22
+ES,index,ES,US 500|S&P 500,1
+NQ,index,NQ,US Tech 100|Nasdaq 100,1
+YM,index,YM,Wall Street|Dow Jones,1
+ZT,rates,ZT,US 2 Year Treasury|2 Year Treasury,1
+ZF,rates,ZF,US 5 Year Treasury|5 Year Treasury,1
+ZN,rates,ZN,US 10 Year Treasury|10 Year Treasury,1
+ZB,rates,ZB,US Treasury Bond|US 30 Year Treasury,1
+EURUSD,fx,6E|E7|M6E,EUR/USD|Euro Dollar,1
+JPYUSD,fx,6J|J7|MJY|M6J,USD/JPY|Japanese Yen,1
+GBPUSD,fx,6B|M6B,GBP/USD|British Pound,1
+AUDUSD,fx,6A|M6A,AUD/USD|Australian Dollar,1
+CADUSD,fx,6C|M6C|MCD,USD/CAD|Canadian Dollar,1
+GC,metals,GC|MGC,Gold,1
+SI,metals,SI|SIL,Silver,1
+HG,metals,HG,Copper,1
+CL,energy,CL|MCL,US Crude|WTI Crude,1
+NG,energy,NG|HH|HP,Natural Gas|Henry Hub,1
+HO,energy,HO,Heating Oil|US Heating Oil,1
+RB,energy,RB,Gasoline|RBOB,1
+ZC,grains,ZC,Corn,1
+ZS,grains,ZS,Soybeans,1
+ZW,grains,ZW,Wheat|Chicago Wheat,1
+CHFUSD,fx,6S|MSF|M6S,USD/CHF|Swiss Franc,0
+NZDUSD,fx,6N,NZD/USD|New Zealand Dollar,0
+MXNUSD,fx,6M,USD/MXN|Mexican Peso,0
+BRLUSD,fx,6L,USD/BRL|Brazilian Real,0
+ZARUSD,fx,6Z,USD/ZAR|South African Rand,0
+USDCNH,fx,CNH|MNH,USD/CNH|Offshore Yuan,0
+AUDCAD,fx,ACD,AUD/CAD,0
+AUDJPY,fx,AJY,AUD/JPY,0
+AUDNZD,fx,ANE,AUD/NZD,0
+CADJPY,fx,CJY,CAD/JPY,0
+EURAUD,fx,EAD,EUR/AUD,0
+EURCAD,fx,ECD,EUR/CAD,0
+EURSEK,fx,ESK,EUR/SEK,0
+INRUSD,fx,MIR,USD/INR|Indian Rupee,0
+BZ,energy,BZ,Brent Crude|Brent,0
+EH,energy,EH,Ethanol,0
+ETHANE,energy,AC0,Ethane,0
+PROPANE,energy,B0|A1R,Propane,0
+NATGASOLINE,energy,A7Q,Natural Gasoline,0
+BUTANE,energy,AD0,Butane,0
+TN,rates,TN,Ultra 10 Year Treasury|Ultra 10 Year,0
+UB,rates,UB,Ultra US Treasury Bond|Ultra Treasury Bond,0
+GE,rates,GE,Eurodollar|Euro Dollar Interest Rate,0
+FIVEY_SWAP,rates,F1U,5 Year USD Swap|5 Year Swap,0
+LUMBER,forestry,LBR|LBS,Lumber,0
+KE,grains,KE,Kansas Wheat|KC Wheat,0
+ZO,grains,ZO,Oats,0
+ZM,grains,ZM,Soybean Meal,0
+ZL,grains,ZL,Soybean Oil,0
+BCF,grains,BCF,Black Sea Corn,0
+BWF,grains,BWF,Black Sea Wheat,0
+EI,index,EI,FTSE Emerging|Emerging Markets Index,0
+NIKKEI,index,NKD|NIY,Nikkei 225|Japan 225,0
+RS1,index,RS1,Russell 1000,0
+RTY,index,RTY|M2K,Russell 2000|US Russell 2000,0
+EMD,index,EMD,S&P MidCap 400|US MidCap 400,0
+TOPIX,index,TPY,TOPIX,0
+IBOV,index,IBV,Ibovespa|Brazil 60,0
+GF,meats,GF,Feeder Cattle,0
+HE,meats,HE,Lean Hogs|Hogs,0
+LE,meats,LE,Live Cattle|Cattle,0
+PA,metals,PA|PAM,Palladium,0
+PL,metals,PL,Platinum,0
+HRC,metals,HRC,Hot Rolled Coil Steel|US Steel HRC,0
+SUGAR,softs,SB|YO,Sugar No. 11|Sugar,0
