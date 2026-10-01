@@ -3,7 +3,7 @@
 ## Status
 Frozen after RUS1 outcomes were inspected and before any 2026 price/volume outcomes were inspected.
 
-A pre-outcome calendar repair was recorded after QuantConnect correctly returned zero bars for the originally specified 2026-06-19 placebo because that date was the Juneteenth exchange holiday. The intended placebo remains the session one week before the event; when that calendar date is not a US equity trading session, use the immediately preceding trading session. For 2026 this resolves to 2026-06-18. No 2026 price/volume outcomes had been produced before this repair.
+A pre-outcome calendar repair was recorded after QuantConnect correctly returned zero bars for the originally specified 2026-06-19 placebo because that date was the Juneteenth exchange holiday. To preserve the original RUS1 placebo design as a prior **Friday** session rather than introduce a weekday mismatch, the resolved 2026 placebo is the immediately preceding trading Friday, 2026-06-12. No 2026 COMB1 outcome had been calculated or displayed before this repair.
 
 ## Research role
 COMB1 is the first formal combination test. It asks whether the robust Russell reconstitution forced-flow mechanism becomes directionally useful when conditioned on a pre-event absorption-capacity proxy.
@@ -47,8 +47,8 @@ If a sampled security cannot be resolved or lacks the required windows, report i
 
 ## Event construction
 2026 event Friday: 2026-06-26.
-Intended placebo date: one calendar week before the event. If that date is not a US equity trading session, use the immediately preceding trading session.
-Resolved 2026 placebo session: 2026-06-18, because 2026-06-19 was the Juneteenth exchange holiday.
+Original intended placebo Friday: 2026-06-19.
+Because 2026-06-19 was the Juneteenth exchange holiday, use the immediately preceding **trading Friday**, 2026-06-12, preserving the same weekday as the RUS1 placebo design.
 
 Use the same RUS1 construction:
 - last-30-minute stock return, market-adjusted by SPY;
@@ -127,7 +127,7 @@ Otherwise COMB1 fails.
 
 ## No rescue/tuning
 After 2026 outcomes are viewed, do not:
-- change the 2026 event date or the market-calendar-resolved placebo rule;
+- change the 2026 event date or the repaired 2026 placebo Friday (2026-06-12);
 - change the first-30-per-side sample;
 - replace unavailable securities;
 - change ADV20 to another liquidity variable;
