@@ -1,0 +1,23 @@
+ticker,family,ig_name,epic,transform,scale,spread_points,margin_pct
+ES,index,US 500,,LINEAR,1,1.0,5
+NQ,index,US Tech 100,,LINEAR,1,3.0,5
+YM,index,Wall Street,,LINEAR,1,6.0,5
+ZT,rates,US 2 Year Treasury,,LINEAR,100,2.0,3.33
+ZF,rates,US 5 Year Treasury,,LINEAR,100,2.0,3.33
+ZN,rates,US 10 Year Treasury,,LINEAR,100,4.0,3.33
+ZB,rates,US Treasury Bond,,LINEAR,100,4.0,3.33
+6E,fx,EUR/USD,,LINEAR,10000,10.6,3.33
+6J,fx,USD/JPY,,INVERSE,100,10.0,3.33
+6B,fx,GBP/USD,,LINEAR,10000,9.9,3.33
+6A,fx,AUD/USD,,LINEAR,10000,8.6,5
+6C,fx,USD/CAD,,INVERSE,10000,7.3,3.33
+GC,metals,Gold,,LINEAR,1,0.8,5
+SI,metals,Silver,,LINEAR,100,10.0,10
+HG,metals,Copper,,LINEAR,10000,40.0,10
+CL,energy,US Crude,,LINEAR,100,6.0,10
+NG,energy,Natural Gas,,LINEAR,1000,10.0,10
+HO,energy,Heating Oil,,LINEAR,10000,30.0,10
+RB,energy,Gasoline,,LINEAR,10000,30.0,10
+ZC,grains,Corn,,LINEAR,1,1.0,10
+ZS,grains,Soybeans,,LINEAR,1,2.0,10
+ZW,grains,Wheat,,LINEAR,1,1.0,10
