@@ -1,0 +1,65 @@
+name: IG Expanded Census
+
+on:
+  workflow_dispatch:
+    inputs:
+      with_history:
+        description: "Download recent IG daily history for transform fitting"
+        required: true
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+jobs:
+  census:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    env:
+      IG_IDENTIFIER: ${{ secrets.IG_IDENTIFIER }}
+      IG_PASSWORD: ${{ secrets.IG_PASSWORD }}
+      IG_API_KEY: ${{ secrets.IG_API_KEY }}
+      IG_ACCOUNT_ID: ${{ secrets.IG_ACCOUNT_ID }}
+
+    steps:
+      - name: Checkout research branch
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependency
+        run: python -m pip install --upgrade requests
+
+      - name: Validate required secrets
+        shell: bash
+        run: |
+          test -n "$IG_IDENTIFIER" || (echo "Missing repository secret: IG_IDENTIFIER" && exit 1)
+          test -n "$IG_PASSWORD" || (echo "Missing repository secret: IG_PASSWORD" && exit 1)
+          test -n "$IG_API_KEY" || (echo "Missing repository secret: IG_API_KEY" && exit 1)
+
+      - name: Run read-only IG census
+        working-directory: research/main_ig_translation
+        shell: bash
+        run: |
+          if [ "${{ inputs.with_history }}" = "true" ]; then
+            python ig_expanded_census.py --with-history
+          else
+            python ig_expanded_census.py
+          fi
+
+      - name: Upload census outputs
+        uses: actions/upload-artifact@v4
+        with:
+          name: ig-expanded-census-${{ github.run_number }}
+          path: |
+            research/main_ig_translation/ig_expanded_census.csv
+            research/main_ig_translation/ig_expanded_exclusions.csv
+            research/main_ig_translation/ig_expanded_all_detail_candidates.csv
+            research/main_ig_translation/ig_expanded_history.csv
+          if-no-files-found: warn
+          retention-days: 14
