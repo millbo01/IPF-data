@@ -1,0 +1,1 @@
+This branch contains follow-up parser fixes for the VIX ETP collector after the first production run exposed provider-format drift.
