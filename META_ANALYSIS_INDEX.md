@@ -112,6 +112,12 @@ Do not infer the project state from branch names alone. Read the detailed meta-a
 ## Next new research direction
 
 ### O1 — Options dealer gamma / forced hedging
-Status: **feasibility + literature phase only; historical outcome test not yet frozen.**
+Branch `research/options-dealer-gamma`
 
-Before any outcome test, first establish Free-tier QC Research access to the required SPX/SPXW option-chain history, then freeze a defensible ex-ante gamma-pressure proxy, a same-drift control, build/holdout split and economic kill rule. Do not assume gross 0DTE volume equals dealer exposure.
+Status: **data feasibility gate frozen; no outcome test yet.**
+
+Key files:
+- `research/options_dealer_gamma/SPEC_O1_FEASIBILITY.md`
+- `research/options_dealer_gamma/qc_research_o1_spxw_feasibility.py`
+
+The first gate checks only whether Free-tier QC Research exposes usable SPXW 0DTE chains with open interest, Greeks and minute contract history on two pre-specified dates. Only if that passes may the exposure proxy/control/sample split/economic gate be frozen. Do not assume gross 0DTE volume equals dealer exposure.
