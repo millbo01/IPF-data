@@ -47,21 +47,30 @@ Key files:
 - `data/equity_letf_rebalance/`
 
 ### Current active candidate
-Research result branch: `research/index-large-move-reversal`
+Research result branch: `research/index-morning-fade-ig`
 
 Key files:
 - `research/index_large_move_reversal/SPEC.md`
 - `research/index_large_move_reversal/RESULTS_V1_ANATOMY.md`
-
-The next executable-economics package was merged to `main` in PR #15 and should be used rather than rebuilt:
 - `research/index_large_move_reversal/SPEC_V2_IG_EXECUTION.md`
+- `research/index_large_move_reversal/SPEC_V2_IG_EXECUTION_AMENDMENT_1.md`
+- `research/index_large_move_reversal/SPEC_V2_IG_EXECUTION_AMENDMENT_2.md`
 - `research/index_large_move_reversal/VENUE_FACTS_2026-10-02.md`
-- `research/index_large_move_reversal/ig_dfb_probe.py`
-- `research/index_large_move_reversal/qc_ig_execution_v2.py`
+- `research/index_large_move_reversal/IG_DFB_PROBE_LATEST.md`
+- `research/index_large_move_reversal/main.py`
+- `research/index_large_move_reversal/RESULTS_V2_IG_EXECUTION.md`
+
+V2 executable-economics result:
+- live IG GBP spread-bet account confirms US Tech 100 DFB at 0.01 POINTS minimum and 5% first-band margin;
+- P80 is not robust enough after execution costs;
+- P90 is the strongest surviving 09:31 candidate;
+- P95 has a larger post-2021 effect but is sparse and regime-sensitive;
+- 09:35 looks stronger recently but failed stability against build and must not be selected from this sample;
+- the next clean step is forward paper/live-shadow validation of frozen P90/09:31, retaining P95 only as a pre-specified high-conviction subset.
 
 ## Current state in one paragraph
 
-Original MAIN still has a positive unrounded research edge, but broad £2,000 IG implementation fails under observed spreads. LC1 validates receiving-capacity effects on immediate price impact but did not produce a stable standalone trade. Modern VIX ETP and equity LETF forced-flow trading stories were tested and demoted. The current active candidate is simpler: after an unusually large Nasdaq move, fade the prior move during the next session's opening half hour, with 09:31-10:00 New York the leading window. PR #15 has already frozen the realistic IG execution test for this candidate; the next agent should review and run that package rather than write a new specification from scratch.
+Original MAIN still has a positive unrounded research edge, but broad £2,000 IG implementation fails under observed spreads. LC1 validates receiving-capacity effects on immediate price impact but did not produce a stable standalone trade. Modern VIX ETP and equity LETF forced-flow trading stories were tested and demoted. The surviving active candidate is the plain Nasdaq large-move next-session morning fade. Its live IG venue gate passed, and V2 shows that the broad P80 version is too weak, while frozen P90/09:31 survives representative costs and 2x spread stress in the post-2021 regime. P95 is stronger but sparse and unstable across regimes. 2026-to-date is negative, so the result is not a deployment green light. The next stage is forward shadow/paper validation, not retrospective optimization.
 
 ## Rule for future agents
 
