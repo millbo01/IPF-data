@@ -1,10 +1,10 @@
-name: NDX Forward Shadow - QC Signal
+name: NDX Forward Shadow - QC API (Dormant)
 
 on:
+  # Dormant on the current QuantConnect Free plan. Manual dispatch is retained
+  # only so this automation can be activated later without redesign if API
+  # access becomes available.
   workflow_dispatch:
-  schedule:
-    # 22:15 UTC is safely after the regular US close in both NY DST states.
-    - cron: "15 22 * * 1-5"
 
 permissions:
   contents: write
