@@ -39,7 +39,7 @@ Negative findings are retained; do not rescue them through same-sample parameter
 ## Next new research direction
 
 ### O1 — Options dealer gamma / forced hedging
-Status: **FEASIBILITY + LITERATURE PHASE, NOT YET FROZEN**
+Status: **DATA FEASIBILITY GATE FROZEN — AWAITING FIRST RUN**
 
 Why it is worth examining:
 - externally documented forced hedging mechanism;
@@ -48,8 +48,14 @@ Why it is worth examining:
 - index-level implementation could be represented economically through a small IG spread-bet account;
 - QuantConnect documents SPX/SPXW index-option history including daily chains, open interest, Greeks and 0DTE universes.
 
+Frozen feasibility branch: `research/options-dealer-gamma`
+
+Key files:
+- `research/options_dealer_gamma/SPEC_O1_FEASIBILITY.md`
+- `research/options_dealer_gamma/qc_research_o1_spxw_feasibility.py`
+
 Before any outcome test:
-1. establish whether the Free-tier QC Research environment can retrieve the required SPXW option-chain history over a usable sample;
+1. run the frozen two-date SPXW data-access diagnostic in Free-tier QC Research;
 2. define an ex-ante dealer-gamma proxy that does not assume unknown customer/dealer trade signs;
 3. define a same-drift control;
 4. define build/holdout split and economic pass/fail gate;
