@@ -47,15 +47,21 @@ Key files:
 - `data/equity_letf_rebalance/`
 
 ### Current active candidate
-Branch `research/index-large-move-reversal`
+Research result branch: `research/index-large-move-reversal`
 
 Key files:
 - `research/index_large_move_reversal/SPEC.md`
 - `research/index_large_move_reversal/RESULTS_V1_ANATOMY.md`
 
+The next executable-economics package was merged to `main` in PR #15 and should be used rather than rebuilt:
+- `research/index_large_move_reversal/SPEC_V2_IG_EXECUTION.md`
+- `research/index_large_move_reversal/VENUE_FACTS_2026-10-02.md`
+- `research/index_large_move_reversal/ig_dfb_probe.py`
+- `research/index_large_move_reversal/qc_ig_execution_v2.py`
+
 ## Current state in one paragraph
 
-Original MAIN still has a positive unrounded research edge, but broad £2,000 IG implementation fails under observed spreads. LC1 validates receiving-capacity effects on immediate price impact but did not produce a stable standalone trade. Modern VIX ETP and equity LETF forced-flow trading stories were tested and demoted. The current active candidate is simpler: after an unusually large Nasdaq move, fade the prior move during the next session's opening half hour, with 09:31-10:00 New York the leading window. The next test is realistic IG/Nasdaq execution using the frozen P80/P90/P95 thresholds from the anatomy study.
+Original MAIN still has a positive unrounded research edge, but broad £2,000 IG implementation fails under observed spreads. LC1 validates receiving-capacity effects on immediate price impact but did not produce a stable standalone trade. Modern VIX ETP and equity LETF forced-flow trading stories were tested and demoted. The current active candidate is simpler: after an unusually large Nasdaq move, fade the prior move during the next session's opening half hour, with 09:31-10:00 New York the leading window. PR #15 has already frozen the realistic IG execution test for this candidate; the next agent should review and run that package rather than write a new specification from scratch.
 
 ## Rule for future agents
 
