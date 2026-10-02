@@ -10,9 +10,11 @@ QuantConnect Cloud API automation is not required for the V3 research design. Th
 
 ### User workflow after each US trading session
 
-Run this file in the existing/free QuantConnect backtester after the regular US close:
+Run the QuantConnect **Research** checker after the regular US close:
 
-`../main_free_forward_check.py`
+`../qc_research_forward_check.py`
+
+A chat-attached `.ipynb` version is supplied whenever the user needs to run it manually.
 
 It places no orders and prints one authoritative line beginning:
 
@@ -52,7 +54,7 @@ Research-branch code:
 - `../qc_forward_signal.py` — API-runner version of the same frozen signal logic
 - `../qc_cloud_forward.py` — dormant QuantConnect Cloud API runner
 
-The manual checker uses a rolling current-date backtest window long enough to calculate the frozen 252-session prior-only z-score. It emits only the latest completed session's status.
+The Research checker uses `QuantBook.history` over a rolling current window long enough to calculate the frozen 252-session prior-only z-score. It emits only the latest completed session's status. The backtest checker is retained only as legacy/dormant code because the Free backtester is currently capped three months out of sample.
 
 ## Paid QuantConnect API automation — dormant
 
