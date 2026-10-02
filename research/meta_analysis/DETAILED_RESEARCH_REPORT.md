@@ -16,9 +16,9 @@ The research began with a validated multi-market futures strategy, **MAIN**, and
 5. **LC1 strongly validated a market-impact mechanism:** comparable aggressive flow produces larger immediate displacement when receiving-side capacity is lower. That mechanism did not become a stable standalone trading rule.
 6. **VIX-ETP forced flow was killed as a current late-equity trading architecture.** Completing the modern product complex with UVIX/SVIX did not rescue it.
 7. **Equity leveraged-ETF rebalancing looked promising initially but failed the causal ablation:** most of the signal was simply large intraday index moves, not incremental LETF pressure.
-8. The control revealed the strongest current candidate: **after an unusually large Nasdaq move, fading the previous move from approximately 09:31 to 10:00 New York the next session**. The effect is strongest at extreme P90/P95 thresholds in recent years, but has not yet been subjected to realistic IG execution costs or full trade-level risk analysis.
+8. The control revealed the strongest current candidate: **after an unusually large Nasdaq move, fading the previous move from approximately 09:31 to 10:00 New York the next session**. The realistic IG execution test is now complete. The live GBP spread-bet account confirms US Tech 100 DFB at 0.01 POINTS minimum and 5% first-band margin. P80 is too weak after costs; frozen P90/09:31 is the strongest surviving executable rule; P95 is stronger post-2021 but sparse and regime-sensitive.
 
-The project should therefore resume with **NDX/QQQ next-session 09:31–10:00 reversal execution testing**, not with further tuning of VIX ETP or leveraged-ETF forced-flow stories.
+The project should therefore resume with **forward shadow/paper validation of frozen NDX P90 / 09:31–10:00**, retaining P95 only as a pre-specified high-conviction subset. Do not retrospectively select the stronger-looking 09:35 sensitivity.
 
 ---
 
@@ -609,64 +609,106 @@ Recent SPX is less clean:
 
 SPX remains a robustness comparison rather than primary target.
 
+
+### 12.8 IG executable-economics result
+
+Branch: `research/index-morning-fade-ig`.
+
+Live-account venue probe:
+- US Tech 100 DFB EPIC `IX.D.NASDAQ.CASH.IP`
+- account-specific minimum 0.01 POINTS
+- first-band margin 5%
+- GBP spread-bet account
+
+Frozen primary execution remains 09:31-10:00 NY. 09:32 and 09:35 are sensitivity checks only.
+
+Primary 09:31, 1x-notional £2,000 account:
+
+| Period | Threshold | n | Gross mean bp | Net mean bp | Net median bp | End £ | Max DD |
+|---|---|---:|---:|---:|---:|---:|---:|
+| Build 2012-18 | P80 | 337 | +0.70 | -1.88 | -6.79 | 1870.28 | -13.1% |
+| Build 2012-18 | P90 | 169 | +3.06 | +0.57 | -5.26 | 2012.21 | -6.7% |
+| Build 2012-18 | P95 | 85 | +7.71 | +5.24 | -8.75 | 2084.76 | -4.6% |
+| 2022-24 | P80 | 161 | -0.09 | -0.83 | -1.48 | 1967.43 | -6.5% |
+| 2022-24 | P90 | 75 | +6.18 | +5.46 | -2.11 | 2079.60 | -3.6% |
+| 2022-24 | P95 | 34 | +8.95 | +8.25 | +14.07 | 2056.19 | -2.1% |
+| 2025-26 | P80 | 68 | +3.23 | +2.73 | +1.51 | 2038.80 | -4.2% |
+| 2025-26 | P90 | 29 | +11.81 | +11.32 | +10.50 | 2066.64 | -1.4% |
+| 2025-26 | P95 | 13 | +26.01 | +25.50 | +10.50 | 2066.55 | -0.8% |
+| Holdout 2019-26 | P80 | 327 | +1.47 | +0.61 | +0.29 | 2028.05 | -6.4% |
+| Holdout 2019-26 | P90 | 156 | +5.17 | +4.26 | +3.01 | 2125.38 | -6.5% |
+| Holdout 2019-26 | P95 | 75 | +2.55 | +1.54 | +9.67 | 2018.48 | -6.9% |
+| Current 2022-26 | P80 | 229 | +0.89 | +0.22 | -0.87 | 2001.38 | -6.5% |
+| Current 2022-26 | P90 | 104 | +7.75 | +7.09 | -0.35 | 2146.23 | -3.6% |
+| Current 2022-26 | P95 | 47 | +13.67 | +13.02 | +12.31 | 2124.18 | -2.1% |
+
+Key interpretation:
+- P80 does not survive strongly enough; 2x spread stress makes the current-regime mean negative.
+- P90 is the strongest surviving executable rule. Holdout net mean is +4.26 bp and remains +3.34 bp under 2x spread stress; break-even full round-trip cost is 7.21 index points.
+- P95 has the larger post-2021 mean but only 47 events in 2022-26 and failed badly in 2019-21.
+- 2025 P90 was +22.45 bp net across 19 events, but 2026-to-date is -9.82 bp across 10 events. The edge is not stationary year to year.
+- 09:35 looks much stronger in recent samples but was worse in build, so it cannot be promoted from this sample.
+- SPX is weaker overall and remains comparator only.
+
+Canonical result file: `research/index_large_move_reversal/RESULTS_V2_IG_EXECUTION.md`.
+
 ---
 
 ## 13. Current best candidate
 
-Highest-priority next experiment:
+The executable-economics stage is complete. The current primary research candidate is now:
 
-> **NDX/QQQ: after a sufficiently large prior-day move, enter a fade after the next regular-session open, initially 09:31 NY, and exit around 10:00 NY.**
+> **NDX/QQQ P90: after the frozen prior-day large-move trigger, fade at 09:31 NY and exit at 10:00 NY.**
 
-Carry forward all three fixed thresholds:
-P80, P90, P95.
+P95 remains a pre-specified high-conviction subset, not a replacement primary rule. P80 is demoted.
 
-Do not optimize threshold yet.
+Do not promote 09:35 from the historical sensitivity test even though it looks stronger recently; it failed build stability.
 
-Why this is preferable:
-- no need for overnight exposure in the contemporary regime;
-- larger gross edge at P90/P95 in the recent sample;
-- candidate appears in original build and recent periods;
-- simpler signal;
-- sparse turnover;
-- potentially compatible with a small account if IG NASDAQ economics are acceptable.
+Why P90 remains active:
+- live IG DFB granularity is acceptable at 0.01 POINTS;
+- representative spread costs are small relative to the surviving P90 edge;
+- post-2021 current-regime net mean is +7.09 bp across 104 events;
+- holdout net mean remains +4.26 bp and +3.34 bp at 2x spread stress;
+- 1x-notional margin utilisation is about 5% on a £2,000 account;
+- no overnight exposure is required.
+
+Why it is not deployment-ready:
+- 2026-to-date is negative;
+- build median is negative;
+- annual chronology is uneven and heavy-tailed;
+- P95 is sparse and regime-sensitive; P90 is better but still not statistically settled.
 
 ---
 
 ## 14. Required next test
 
-Perform an **executable IG/Nasdaq morning-fade study**.
+Run a **forward shadow/paper validation** with no retrospective rule changes.
 
-Signal:
-on day T, determine whether the 15:45 rolling-z move crossed P80/P90/P95.
+Frozen primary:
+- Nasdaq / NDX candidate only
+- P90 threshold 1.7796
+- signal exactly as already defined from QQQ 15:45 prior-day return z-score using prior observations only
+- trade direction opposite the prior move
+- 09:31 NY entry
+- 10:00 NY exit
+- IG US Tech 100 DFB representation
+- 1x account-notional sizing rounded to £0.01/point
+- 5% margin model
 
-Trade day T+1:
-- direction opposite day T move
-- initial entry 09:31 NY
-- exit 10:00 NY
-- do not assume overnight exposure
+Frozen secondary subset:
+- P95 threshold 2.3646, reported separately
 
-Execution realism:
-- identify/confirm IG NASDAQ / US Tech spread-bet instrument
-- minimum stake
-- margin
-- opening-session spread
-- spread widening around 09:30
-- conservative slippage/cost stress
+Monitor prospectively:
+- trigger date and z-score
+- intended stake and margin
+- live IG bid/offer at signal/entry/exit
+- realised spread/slippage versus historical assumption
+- gross and net points/bp
+- cumulative £2,000 shadow equity
+- drawdown
+- any missed/untradeable event
 
-Required outputs:
-- gross and net mean/median bp
-- hit rate
-- trade count and trades/year
-- £2,000 equity curve
-- max drawdown
-- margin utilisation
-- break-even cost
-- year-by-year results
-- up-day/down-day split
-- entry sensitivity 09:31/09:32/09:35 if possible, without selecting the best timestamp on the same sample
-- full trade ledger
-
----
+Do not add volatility, direction, weekday, 09:35, or other filters during the forward phase. Any such change is a new experiment.
 
 ## 15. Dead / demoted tracks
 
