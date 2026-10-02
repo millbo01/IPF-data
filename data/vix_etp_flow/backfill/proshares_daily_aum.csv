@@ -11498,3 +11498,6 @@ date,ticker,nav,shares_outstanding_source,aum,source_ticker,source_url,quality
 2026-09-30,SVXY,63.81653288,4068.61,259644839.1070283,SVXY,https://accounts.profunds.com/etfdata/ByFund/SVXY-historical_nav.csv,OFFICIAL_PROSHARES_DAILY
 2026-09-30,UVXY,17.17898586,15917.35,273443879.0417134,UVXY,https://accounts.profunds.com/etfdata/ByFund/UVXY-historical_nav.csv,OFFICIAL_PROSHARES_DAILY
 2026-09-30,VIXY,16.84728888,13141.25,221394468.68887776,VIXY,https://accounts.profunds.com/etfdata/ByFund/VIXY-historical_nav.csv,OFFICIAL_PROSHARES_DAILY
+2026-10-01,SVXY,63.46084139,4068.61,258197667.73113343,SVXY,https://accounts.profunds.com/etfdata/ByFund/SVXY-historical_nav.csv,OFFICIAL_PROSHARES_DAILY
+2026-10-01,UVXY,17.47262271,15267.35,266760593.9136504,UVXY,https://accounts.profunds.com/etfdata/ByFund/UVXY-historical_nav.csv,OFFICIAL_PROSHARES_DAILY
+2026-10-01,VIXY,17.04049607,13141.25,223933453.06087965,VIXY,https://accounts.profunds.com/etfdata/ByFund/VIXY-historical_nav.csv,OFFICIAL_PROSHARES_DAILY
