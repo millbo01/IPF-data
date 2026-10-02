@@ -13,9 +13,12 @@ This creates a useful accidental sealed holdout. It must be tested before the or
 ## Holdout window
 
 Primary sealed holdout:
-- signal dates: **2026-07-03 through 2026-09-29**
-- trade dates may extend through **2026-09-30**
-- no October 2026 observation is included.
+- include any frozen-rule signal whose **trade execution date is after the 2026-07-02 QC cutoff and on/before 2026-09-30**;
+- operationally this includes the already-visible **2026-07-02 P90 signal** if its next tradable session falls inside the hidden window;
+- subsequent eligible signal dates run through **2026-09-29**;
+- no October 2026 trade is included.
+
+The 2026-07-02 signal itself is already known from the stale checker run (z = -1.885367, P90 yes, P95 no), but its next-session 09:31-10:00 outcome has not been viewed. It is therefore retained rather than excluded.
 
 This is a fixed calendar window chosen before any outcome in that window is examined.
 
