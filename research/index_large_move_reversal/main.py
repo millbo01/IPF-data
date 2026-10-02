@@ -85,11 +85,60 @@ class IndexMorningFadeIG(QCAlgorithm):
         self.day = None
         self.rows = []
         self.exec_bar_count = {"SPX": 0, "NDX": 0}
+        self._setup_export_chart()
 
         self.log("IGFADE_BEGIN")
-        self.log("VERSION=V2_IG_EXECUTION_AMEND1_LIVE_MIN_1X_NOTIONAL")
+        self.log("VERSION=V2_IG_EXECUTION_AMEND2_CHART_EXPORT")
         self.log("PRIMARY=NDX,P80/P90/P95_UNCHANGED,ENTRY=09:31,EXIT=10:00")
         self.log("SENSITIVITY=09:32|09:35;NO_TIMESTAMP_SELECTION")
+
+    def _setup_export_chart(self):
+        # Transport the event-level results through QC charts so Download Results
+        # carries the data even when the account log quota is exhausted.
+        # Free-tier quota is 10 custom series; this uses exactly 10.
+        chart = Chart("IGFADE_EXPORT")
+        names = [
+            "NDX_Z",
+            "NDX_SIGRET_BP",
+            "NDX_ENTRY0931",
+            "NDX_GROSS0931_BP",
+            "NDX_MAE0931_BP",
+            "NDX_GROSS0932_BP",
+            "NDX_GROSS0935_BP",
+            "SPX_Z",
+            "SPX_ENTRY0931",
+            "SPX_GROSS0931_BP",
+        ]
+        self.export_series = {}
+        for idx, name in enumerate(names):
+            series = Series(name, SeriesType.LINE, idx, "")
+            chart.add_series(series)
+            self.export_series[name] = series
+        self.add_chart(chart)
+
+    def _export_chart_data(self, ndx, spx):
+        # X-axis is the trade date. The signal date is the immediately preceding
+        # regular US equity session and can therefore be reconstructed exactly.
+        ne = ndx[ndx["abs_z"] >= THRESHOLDS["NDX"]["P80"]].sort_values("trade_date")
+        for _, r in ne.iterrows():
+            t = pd.Timestamp(r["trade_date"]).to_pydatetime()
+            self.export_series["NDX_Z"].add_point(t, float(r["z"]))
+            self.export_series["NDX_SIGRET_BP"].add_point(t, float(r["intraday_return"]) * 10000.0)
+            self.export_series["NDX_ENTRY0931"].add_point(t, float(r["exec_0931"]))
+            self.export_series["NDX_GROSS0931_BP"].add_point(t, float(r["gross_bp_0931"]))
+            self.export_series["NDX_MAE0931_BP"].add_point(t, float(r["mae_bp_0931"]))
+            self.export_series["NDX_GROSS0932_BP"].add_point(t, float(r["gross_bp_0932"]))
+            self.export_series["NDX_GROSS0935_BP"].add_point(t, float(r["gross_bp_0935"]))
+
+        se = spx[spx["abs_z"] >= THRESHOLDS["SPX"]["P80"]].sort_values("trade_date")
+        for _, r in se.iterrows():
+            t = pd.Timestamp(r["trade_date"]).to_pydatetime()
+            self.export_series["SPX_Z"].add_point(t, float(r["z"]))
+            self.export_series["SPX_ENTRY0931"].add_point(t, float(r["exec_0931"]))
+            self.export_series["SPX_GROSS0931_BP"].add_point(t, float(r["gross_bp_0931"]))
+
+        self.set_runtime_statistic("IGFADE Export", f"NDX={len(ne)} SPX={len(se)}")
+        self.set_runtime_statistic("IGFADE Output", "Download Results JSON")
 
     @staticmethod
     def _bar(data, symbol):
@@ -399,39 +448,29 @@ class IndexMorningFadeIG(QCAlgorithm):
 
     def on_end_of_algorithm(self):
         if len(self.rows) < 500:
-            self.log(f"IGFADE_FAIL,rows={len(self.rows)}")
+            self.set_runtime_statistic("IGFADE Status", f"FAIL rows={len(self.rows)}")
             return
 
         df = pd.DataFrame(self.rows)
-        self.log(
-            f"IGFADE_QA,rows={len(df)},complete={int(df.complete.sum())},"
-            f"start={df.signal_date.min().date()},end={df.signal_date.max().date()},"
-            f"spxIndexBars={self.exec_bar_count['SPX']},ndxIndexBars={self.exec_bar_count['NDX']}"
+        ndx = self._enrich("NDX", df[df.family == "NDX"].copy())
+        spx = self._enrich("SPX", df[df.family == "SPX"].copy())
+
+        if len(ndx) == 0 or len(spx) == 0:
+            self.set_runtime_statistic("IGFADE Status", f"FAIL NDX={len(ndx)} SPX={len(spx)}")
+            return
+
+        self._export_chart_data(ndx, spx)
+        self.set_runtime_statistic(
+            "IGFADE QA",
+            f"rows={len(df)} NDX={len(ndx)} SPX={len(spx)}"
         )
-
-        for fam in ("NDX", "SPX"):
-            q = self._enrich(fam, df[df.family == fam].copy())
-            self.log(
-                f"IGFADE_QA,{fam},usable={len(q)},"
-                f"start={q.signal_date.min().date() if len(q) else 'NA'},"
-                f"end={q.signal_date.max().date() if len(q) else 'NA'}"
-            )
-            if len(q) == 0:
-                continue
-
-            self._ledger(fam, q)
-            self._direction_split(fam, q)
-
-            for period, start, end in PERIODS:
-                p = q[(q.signal_date >= start) & (q.signal_date <= end)]
-                for tname, threshold in THRESHOLDS[fam].items():
-                    e = p[p.abs_z >= threshold]
-                    for key, _, _ in ENTRIES:
-                        for cname, cost_mult in COSTS:
-                            for sizing_mode in SIZING:
-                                self._summary(fam, period, e, tname, key,
-                                              cname, cost_mult, sizing_mode)
-
-            self._years(fam, q)
-
-        self.log("IGFADE_END")
+        self.set_runtime_statistic(
+            "IGFADE Bars",
+            f"NDX={self.exec_bar_count['NDX']} SPX={self.exec_bar_count['SPX']}"
+        )
+        # One compact log line only. Runtime statistics + Download Results are the
+        # authoritative output path for this run.
+        self.log(
+            f"IGFADE_EXPORT_READY,rows={len(df)},NDX={len(ndx)},SPX={len(spx)},"
+            f"chart=IGFADE_EXPORT"
+        )
