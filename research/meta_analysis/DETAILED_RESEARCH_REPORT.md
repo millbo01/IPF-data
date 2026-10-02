@@ -817,6 +817,8 @@ Branch `research/index-morning-fade-ig`
 - `research/index_large_move_reversal/results_v2/NDX_IG_FADE_V2_DIRECTION.csv`
 - `research/index_large_move_reversal/results_v2/SPX_IG_FADE_V2_SUMMARY.csv`
 - `research/index_large_move_reversal/SPEC_V3_FORWARD_SHADOW.md`
+- `research/index_large_move_reversal/SPEC_V3_FORWARD_SHADOW_AMENDMENT_FREE_TIER.md`
+- `research/index_large_move_reversal/main_free_forward_check.py`
 - `research/index_large_move_reversal/forward_shadow/README.md`
 - `research/index_large_move_reversal/qc_forward_signal.py`
 - `research/index_large_move_reversal/qc_cloud_forward.py`
@@ -840,4 +842,4 @@ The best current candidate is simpler:
 
 The V2 execution-realism stage is complete: the live IG DFB venue gate passed and frozen P90 survives representative costs and 2x spread stress, while P80 is demoted and P95 remains a sparse secondary subset.
 
-The project is now in **V3 prospective validation**, not historical search. The repository contains scheduled GitHub workflows that can call QuantConnect Cloud for the frozen signal and capture read-only live IG bid/offer data for triggered sessions. No rule changes are permitted inside that forward sample.
+The project is now in **V3 prospective validation**, not historical search. On the current QuantConnect Free plan, the frozen signal is checked manually in QC using `main_free_forward_check.py`; when P90 triggers, the signal is armed in GitHub and the scheduled read-only IG workflow captures live 09:31-10:00 bid/offer data automatically. The paid QC API runner remains dormant and is not required. No rule changes are permitted inside that forward sample.
