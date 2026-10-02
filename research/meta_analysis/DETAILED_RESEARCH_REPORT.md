@@ -872,3 +872,20 @@ Canonical files: branch `research/index-morning-fade-ig`, `research/index_large_
 V3 remains the only active trading candidate and must continue prospectively until at least 30 P90 events and 12 calendar months. The current durable next action is stored at `research/index_large_move_reversal/forward_shadow/NEXT_ACTION.md`.
 
 There is no other high-priority frozen untouched trading hypothesis waiting to run. The next new research direction is **O1 — options dealer gamma / forced hedging**. Its first **data-feasibility gate is now frozen** on branch `research/options-dealer-gamma`: two fixed SPXW probe dates test 0DTE chain availability, OI/Greeks fields and minute contract history only. No return outcome is examined. Only if that gate passes may the exposure proxy, control, sample split and economic gate be frozen.
+
+
+## 24. O1 options dealer-gamma feasibility
+
+O1 was intentionally tested first as a cheap data-access gate, not as an outcome hypothesis.
+
+Fixed probe dates:
+- 2025-11-05
+- 2026-09-24
+
+Both dates returned large SPXW 0DTE chains with complete non-null open interest, gamma, delta, IV and volume fields. However, the pre-selected most-active 0DTE contract on each date returned **0 minute TradeBar rows and 0 minute QuoteBar rows** over 09:30-16:01 NY.
+
+Frozen gate result: **FAIL, 0/2 dates passed.**
+
+Disposition: no date changes, no relaxation of the 100-row requirement, no historical outcome test from this branch, and no attempt to infer dealer net gamma sign from unsigned OI/gross volume as a workaround.
+
+Canonical files: branch `research/options-dealer-gamma`, `research/options_dealer_gamma/SPEC_O1_FEASIBILITY.md` and `RESULTS_O1_FEASIBILITY.md`.
