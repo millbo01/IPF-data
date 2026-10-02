@@ -1,0 +1,2 @@
+check_date,signal_date,status,qc_asof,ret_bp,z,abs_z,signal,fade,p95,external_px1545,matched_sessions,sig_minute,close_minute,max_overlap_return_diff_bp,formal_status
+2026-10-02,2026-10-01,PROVISIONAL_NO_SIGNAL,2026-09-30,42.986,0.266705,0.266705,UP,SELL,false,742.9500,6,15:44,15:59,0.238,PENDING_QC_CONFIRMATION
