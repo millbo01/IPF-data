@@ -1,0 +1,66 @@
+name: IG Index DFB Probe
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    env:
+      IG_IDENTIFIER: ${{ secrets.IG_IDENTIFIER }}
+      IG_PASSWORD: ${{ secrets.IG_PASSWORD }}
+      IG_API_KEY: ${{ secrets.IG_API_KEY }}
+      IG_ACCOUNT_ID: ${{ secrets.IG_ACCOUNT_ID }}
+
+    steps:
+      - name: Checkout research branch
+        uses: actions/checkout@v4
+        with:
+          ref: research/index-morning-fade-ig
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependency
+        run: python -m pip install --upgrade requests
+
+      - name: Validate IG secrets
+        shell: bash
+        run: |
+          test -n "$IG_IDENTIFIER" || (echo "Missing repository secret: IG_IDENTIFIER" && exit 1)
+          test -n "$IG_PASSWORD" || (echo "Missing repository secret: IG_PASSWORD" && exit 1)
+          test -n "$IG_API_KEY" || (echo "Missing repository secret: IG_API_KEY" && exit 1)
+
+      - name: Run read-only DFB probe
+        run: python research/index_large_move_reversal/ig_dfb_probe.py
+
+      - name: Commit probe results to research branch
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add research/index_large_move_reversal/IG_DFB_PROBE_LATEST.csv
+          git add research/index_large_move_reversal/IG_DFB_PROBE_LATEST.md
+          if git diff --cached --quiet; then
+            echo "No probe result changes."
+          else
+            git commit -m "Record IG DFB live-account probe"
+            git push origin HEAD:research/index-morning-fade-ig
+          fi
+
+      - name: Upload probe results
+        uses: actions/upload-artifact@v4
+        with:
+          name: ig-index-dfb-probe
+          path: |
+            research/index_large_move_reversal/IG_DFB_PROBE_LATEST.csv
+            research/index_large_move_reversal/IG_DFB_PROBE_LATEST.md
+          retention-days: 14
