@@ -1,0 +1,20 @@
+{
+  "checked_at_utc": "2026-10-02",
+  "qc_asof": "2026-09-30",
+  "signal_date": "2026-10-01",
+  "status": "PROVISIONAL_NO_SIGNAL",
+  "ret_bp": 42.986,
+  "z": 0.266705,
+  "abs_z": 0.266705,
+  "signal": "UP",
+  "fade": "SELL",
+  "p95": false,
+  "external_px1545": 742.95,
+  "bridge_feed_check": {
+    "matched_sessions": 6,
+    "signal_minute_mapping": "15:44",
+    "close_minute_mapping": "15:59",
+    "max_overlap_return_diff_bp": 0.238
+  },
+  "formal_v3_status": "PENDING_QC_CONFIRMATION"
+}
