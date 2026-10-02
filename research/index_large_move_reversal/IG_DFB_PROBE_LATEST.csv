@@ -1,0 +1,5 @@
+checked_utc,family,search_term,epic,name,type,expiry,market_status,bid,offer,spread_points,min_deal_size,min_deal_unit,margin_pct_first_band,currency,contract_size,lot_size,one_pip_means,value_of_one_pip,controlled_risk_allowed,streaming_prices_available
+2026-10-02T08:25:45.105027+00:00,NDX,US Tech 100,IX.D.NASDAQ.CASH.IP,US Tech 100,INDICES,DFB,TRADEABLE,30725.9,30728.1,2.1999999999970896,0.01,POINTS,5.0,GBP,,1.0,,,,True
+2026-10-02T08:25:47.441655+00:00,NDX,US Tech 100,IX.D.SUNNAS.DAILY.IP,Weekend US Tech 100,INDICES,DFB,EDITS_ONLY,30706.8,30746.8,40.0,0.01,POINTS,5.0,GBP,,1.0,,,,True
+2026-10-02T08:26:01.592166+00:00,NDX,US Tech 100,IX.D.NASDAQ.MONTH4.IP,US Tech 100,INDICES,DEC-26,TRADEABLE,30992.4,30995.4,3.0,0.01,POINTS,5.0,GBP,,1.0,,,,True
+2026-10-02T08:26:06.514211+00:00,SPX,US 500,IX.D.SPTRD.DAILY.IP,US 500,INDICES,DFB,TRADEABLE,7698.88,7699.58,0.6999999999998181,0.01,POINTS,5.0,GBP,,1.0,,,,True
