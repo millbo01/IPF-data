@@ -14,6 +14,9 @@ Files:
 - `research/meta_analysis/DATA_PROVENANCE.md` — what raw/derived data are actually stored
 - `research/meta_analysis/HANDOVER_PROMPT.md` — copy/paste prompt for a new ChatGPT/agent session
 
+Project-level queue:
+- `research/RESEARCH_QUEUE.md` — current active monitoring, closed tracks and next new-hypothesis work
+
 ## Primary evidence branches
 
 ### MAIN -> IG
@@ -46,6 +49,18 @@ Key files:
 - `research/equity_letf_rebalance/RESULTS_V2_ABLATION.md`
 - `data/equity_letf_rebalance/`
 
+### R1 mandated rebalancing
+Branch `research/r1-mandated-rebalancing`
+
+Key files:
+- `research/r1_mandated_rebalancing/SPEC.md`
+- `research/r1_mandated_rebalancing/RESULTS_R1.md`
+
+Disposition:
+- post-paper Threshold sign remained negative;
+- frozen Combined strategy failed to beat the 5-day reversal control on the holdout;
+- R1 is deprioritized and R1.1 must not run.
+
 ### Current active candidate
 Research result branch: `research/index-morning-fade-ig`
 
@@ -71,6 +86,9 @@ Key files:
 - `research/index_large_move_reversal/results_v2_5/SEALED_Q3_LEDGER.csv`
 - `research/index_large_move_reversal/main_free_forward_check.py`
 - `research/index_large_move_reversal/forward_shadow/README.md`
+- `research/index_large_move_reversal/forward_shadow/provisional_signal_history.csv`
+- `research/index_large_move_reversal/forward_shadow/NEXT_ACTION.md`
+- `research/index_large_move_reversal/SPEC_V3_FORWARD_SHADOW_AMENDMENT_SOURCE_BRIDGE.md`
 - `.github/workflows/ndx-forward-shadow-qc-signal.yml`
 - `.github/workflows/ndx-forward-shadow-ig-capture.yml`
 
@@ -89,3 +107,11 @@ Original MAIN still has a positive unrounded research edge, but broad £2,000 IG
 ## Rule for future agents
 
 Do not infer the project state from branch names alone. Read the detailed meta-analysis report first, then inspect the primary result files on the relevant branch before changing or reviving a hypothesis.
+
+
+## Next new research direction
+
+### O1 — Options dealer gamma / forced hedging
+Status: **feasibility + literature phase only; historical outcome test not yet frozen.**
+
+Before any outcome test, first establish Free-tier QC Research access to the required SPX/SPXW option-chain history, then freeze a defensible ex-ante gamma-pressure proxy, a same-drift control, build/holdout split and economic kill rule. Do not assume gross 0DTE volume equals dealer exposure.
