@@ -59,6 +59,7 @@ Key files:
 - `research/index_large_move_reversal/IG_DFB_PROBE_LATEST.md`
 - `research/index_large_move_reversal/main.py`
 - `research/index_large_move_reversal/RESULTS_V2_IG_EXECUTION.md`
+- `research/index_large_move_reversal/SPEC_V3_FORWARD_SHADOW.md`
 
 V2 executable-economics result:
 - live IG GBP spread-bet account confirms US Tech 100 DFB at 0.01 POINTS minimum and 5% first-band margin;
