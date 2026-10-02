@@ -67,4 +67,4 @@ Do not begin historical optimization until the feasibility and specification are
 
 There is no other high-priority, already-frozen untouched hypothesis waiting to be run.
 
-The next stage is therefore deliberate hypothesis formation and cheap feasibility testing, while V3 continues prospectively.
+There is currently no other high-priority frozen untouched hypothesis waiting to run. V3 prospective validation remains the active empirical programme. Any further new branch should begin with a genuinely independent mechanism and a cheap feasibility/falsification gate, not a rescue variant of MAIN, LC1, VIX, LETF, R1 or O1.
