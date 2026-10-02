@@ -761,7 +761,9 @@ The repository does not contain complete standalone raw copies of:
 
 For these, reproducibility rests on exact algorithm logic where archived, sample windows, algorithm IDs and output result files/logs.
 
-A companion handover ZIP generated from the working session contains the QC scripts and logs that were still locally available.
+For INDEX-IG-V2, the reconstructed event-level result artifacts are now stored directly in GitHub under `research/index_large_move_reversal/results_v2/`, including the full NDX P80+ trade ledger and all frozen summary tables. Raw vendor minute history is still not duplicated.
+
+The V3 forward phase writes new signal state, raw observed IG quote paths and the prospective ledger under `research/index_large_move_reversal/forward_shadow/`.
 
 ---
 
@@ -805,9 +807,20 @@ Branch `research/equity-letf-rebalance`
 - `data/equity_letf_rebalance/`
 
 ### Current candidate
-Branch `research/index-large-move-reversal`
+Branch `research/index-morning-fade-ig`
 - `research/index_large_move_reversal/SPEC.md`
 - `research/index_large_move_reversal/RESULTS_V1_ANATOMY.md`
+- `research/index_large_move_reversal/RESULTS_V2_IG_EXECUTION.md`
+- `research/index_large_move_reversal/results_v2/NDX_IG_FADE_V2_TRADE_LEDGER.csv`
+- `research/index_large_move_reversal/results_v2/NDX_IG_FADE_V2_SUMMARY.csv`
+- `research/index_large_move_reversal/results_v2/NDX_IG_FADE_V2_YEARLY.csv`
+- `research/index_large_move_reversal/results_v2/NDX_IG_FADE_V2_DIRECTION.csv`
+- `research/index_large_move_reversal/results_v2/SPX_IG_FADE_V2_SUMMARY.csv`
+- `research/index_large_move_reversal/SPEC_V3_FORWARD_SHADOW.md`
+- `research/index_large_move_reversal/forward_shadow/README.md`
+- `research/index_large_move_reversal/qc_forward_signal.py`
+- `research/index_large_move_reversal/qc_cloud_forward.py`
+- `research/index_large_move_reversal/shadow_ig_capture.py`
 
 ---
 
@@ -823,6 +836,8 @@ VIX and LETF forced-flow ideas were corrected, extended and then demoted rather 
 
 The best current candidate is simpler:
 
-**after an unusually large Nasdaq move, fade it during the next session’s first half-hour, with the current leading implementation window approximately 09:31–10:00 NY.**
+**after an unusually large Nasdaq move, fade it during the next session’s first half-hour, with the frozen primary implementation P90 / 09:31–10:00 NY.**
 
-That candidate now needs execution realism, not another mechanism story.
+The V2 execution-realism stage is complete: the live IG DFB venue gate passed and frozen P90 survives representative costs and 2x spread stress, while P80 is demoted and P95 remains a sparse secondary subset.
+
+The project is now in **V3 prospective validation**, not historical search. The repository contains scheduled GitHub workflows that can call QuantConnect Cloud for the frozen signal and capture read-only live IG bid/offer data for triggered sessions. No rule changes are permitted inside that forward sample.
