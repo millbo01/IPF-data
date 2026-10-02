@@ -1,4 +1,110 @@
 ticker,label,url,quality
+SVIX,August 2026,https://www.volatilityshares.com/uploads/filling_doc/375-421-VSTrustMonthlyStatement20260831.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+UVIX,August 2026,https://www.volatilityshares.com/uploads/filling_doc/376-422-VSTrustMonthlyStatement20260831.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+SVIX,July 2026,https://www.volatilityshares.com/uploads/filling_doc/357-403-VSTrustMonthlyStatement20260731.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+UVIX,July 2026,https://www.volatilityshares.com/uploads/filling_doc/358-404-VSTrustMonthlyStatement20260731.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+SVIX,June 2026,https://www.volatilityshares.com/uploads/filling_doc/325-371-VSTrustMonthlyStatement20260630.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+UVIX,June 2026,https://www.volatilityshares.com/uploads/filling_doc/326-372-VSTrustMonthlyStatement20260630.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+SVIX,May 2026,https://www.volatilityshares.com/uploads/filling_doc/323-369-VSTrustMonthlyStatement20260531.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+UVIX,May 2026,https://www.volatilityshares.com/uploads/filling_doc/324-370-VSTrustMonthlyStatement20260531.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+SVIX,April 2026,https://www.volatilityshares.com/uploads/filling_doc/303-342-VSTrustMonthlyStatement20260430.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+UVIX,April 2026,https://www.volatilityshares.com/uploads/filling_doc/304-343-VSTrustMonthlyStatement20260430.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+SVIX,March 2026,https://www.volatilityshares.com/uploads/filling_doc/275-314-VSTrustMonthlyStatement20260331.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+UVIX,March 2026,https://www.volatilityshares.com/uploads/filling_doc/276-315-VSTrustMonthlyStatement20260331.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+SVIX,February 2026,https://www.volatilityshares.com/uploads/filling_doc/264-303-VSTrustMonthlyStatement20260228.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+UVIX,February 2026,https://www.volatilityshares.com/uploads/filling_doc/265-304-VSTrustMonthlyStatement20260228.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+SVIX,January 2026,https://www.volatilityshares.com/uploads/filling_doc/253-0-253-292-VSTrustMonthlyStatement20260131.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+UVIX,January 2026,https://www.volatilityshares.com/uploads/filling_doc/254-0-254-293-VSTrustMonthlyStatement20260131.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+SVIX,December 2025,https://www.volatilityshares.com/uploads/filling_doc/242-281-VS-Trust-Monthly-Statement-123125-Confidential-Signed.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+UVIX,December 2025,https://www.volatilityshares.com/uploads/filling_doc/243-282-VS-Trust-Monthly-Statement-123125-Confidential-Signed.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+SVIX,November 2025,https://www.volatilityshares.com/uploads/filling_doc/240-279-VS-Trust-Monthly-Statement-113025-Confidential-Signed.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+UVIX,November 2025,https://www.volatilityshares.com/uploads/filling_doc/241-280-VS-Trust-Monthly-Statement-113025-Confidential-Signed.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+SVIX,October 2025,https://www.volatilityshares.com/uploads/filling_doc/210-253-VS-Trust-Monthly-Statement-103125-Confidential-Signed.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+UVIX,October 2025,https://www.volatilityshares.com/uploads/filling_doc/211-254-VS-Trust-Monthly-Statement-103125-Confidential-Signed.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+SVIX,September 2025,https://www.volatilityshares.com/uploads/filling_doc/199-242-VS-Trust-Monthly-Statement-93025-Confidential-Signed.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+UVIX,September 2025,https://www.volatilityshares.com/uploads/filling_doc/200-243-VS-Trust-Monthly-Statement-93025-Confidential-Signed.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+SVIX,August 2025,https://www.volatilityshares.com/uploads/filling_doc/188-231-VS-Trust-Monthly-Statement-83125-Confidential-Signed.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+UVIX,August 2025,https://www.volatilityshares.com/uploads/filling_doc/189-232-VS-Trust-Monthly-Statement-83125-Confidential-Signed.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+SVIX,July 2025,https://www.volatilityshares.com/uploads/filling_doc/177-0-177-220-VSTrust-MonthlyStatement-73125-Confidential-Signed.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+UVIX,July 2025,https://www.volatilityshares.com/uploads/filling_doc/178-0-178-221-VSTrust-MonthlyStatement-73125-Confidential-Signed.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+SVIX,June 2025,https://www.volatilityshares.com/uploads/filling_doc/111-0-VSTrust-MonthlyStatement-63025-Confidential.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+UVIX,June 2025,https://www.volatilityshares.com/uploads/filling_doc/112-155-VSTrust-MonthlyStatement-63025-Confidential.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+SVIX,May 2025,https://www.volatilityshares.com/uploads/filling_doc/70-0-70-151-166-243-VS-Trust-Monthly-Statement-53125-Confidential-Signed-1.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+UVIX,May 2025,https://www.volatilityshares.com/uploads/filling_doc/108-148-167-244-VS-Trust-Monthly-Statement-53125-Confidential-Signed.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+SVIX,April 2025,https://www.volatilityshares.com/uploads/filling_doc/69-109-135-228-VSTrust-MonthlyStatement-43025-Confidential.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+UVIX,April 2025,https://www.volatilityshares.com/uploads/filling_doc/107-147-136-229-VSTrust-MonthlyStatement-43025-Confidential.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+SVIX,March 2025,https://www.volatilityshares.com/uploads/filling_doc/68-108-137-193-VS-Trust-Monthly-Statement-33125-Confidential-Signed.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+UVIX,March 2025,https://www.volatilityshares.com/uploads/filling_doc/106-146-138-194-VS-Trust-Monthly-Statement-33125-Confidential-Signed.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+SVIX,February 2025,https://www.volatilityshares.com/uploads/filling_doc/67-107-126-180-VSTrust-MonthlyStatement-22825-Confidential.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+UVIX,February 2025,https://www.volatilityshares.com/uploads/filling_doc/105-145-127-181-VSTrust-MonthlyStatement-22825-Confidential.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+SVIX,January 2025,https://www.volatilityshares.com/uploads/filling_doc/66-106-125-177-VSTrust-MonthlyStatement-13125-ConfidentialDraft2.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+UVIX,January 2025,https://www.volatilityshares.com/uploads/filling_doc/104-144-111-176-VSTrust-MonthlyStatement-13125-ConfidentialDraft2.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+SVIX,December 2024,https://www.volatilityshares.com/uploads/filling_doc/65-105-113-163-VSTrust-MonthlyStatement-123124-Confidential-Signed.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+UVIX,December 2024,https://www.volatilityshares.com/uploads/filling_doc/103-143-114-164-VSTrust-MonthlyStatement-123124-Confidential-Signed.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+SVIX,November 2024,https://www.volatilityshares.com/uploads/filling_doc/64-104-86-138-VS-Trust-Monthly-Statement-113024-Confidential-Signed.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+UVIX,November 2024,https://www.volatilityshares.com/uploads/filling_doc/102-142-87-139-VS-Trust-Monthly-Statement-113024-Confidential-Signed.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+SVIX,October 2024,https://www.volatilityshares.com/uploads/filling_doc/63-103-88-136-VS-Trust-Monthly-Statement-103124-Confidential-v2-Signed.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+UVIX,October 2024,https://www.volatilityshares.com/uploads/filling_doc/101-141-89-137-VS-Trust-Monthly-Statement-103124-Confidential-v2-Signed.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+SVIX,September 2024,https://www.volatilityshares.com/uploads/filling_doc/62-102-78-124-VS-Trust-Monthly-Statement-93024-Confidential-Signed.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+UVIX,September 2024,https://www.volatilityshares.com/uploads/filling_doc/100-140-79-125-VS-Trust-Monthly-Statement-93024-Confidential-Signed.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+SVIX,August 2024,https://www.volatilityshares.com/uploads/filling_doc/61-101-70-122-VS-Trust-Monthly-Statement-83124-Confidential-Signed.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+UVIX,August 2024,https://www.volatilityshares.com/uploads/filling_doc/99-139-71-123-VS-Trust-Monthly-Statement-83124-Confidential-Signed.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+SVIX,July 2024,https://www.volatilityshares.com/uploads/filling_doc/60-100-72-95-July-2024-Monthly-Statement.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+UVIX,July 2024,https://www.volatilityshares.com/uploads/filling_doc/98-138-73-96-July-2024-Monthly-Statement.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+SVIX,June 2024,https://www.volatilityshares.com/uploads/filling_doc/59-99-69-92-VS-Trust-Monthly-Statement-63024.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+UVIX,June 2024,https://www.volatilityshares.com/uploads/filling_doc/97-137-68-91-VS-Trust-Monthly-Statement-63024.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+SVIX,May 2024,https://www.volatilityshares.com/uploads/filling_doc/58-98-64-89-Monthly-Statement-53124.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+UVIX,May 2024,https://www.volatilityshares.com/uploads/filling_doc/96-136-63-88-Monthly-Statement-53124.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+SVIX,April 2024,https://www.volatilityshares.com/uploads/filling_doc/57-97-65-86-VS-Trust-Monthly-Statement-43024.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+UVIX,April 2024,https://www.volatilityshares.com/uploads/filling_doc/95-135-66-87-VS-Trust-Monthly-Statement-43024.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+SVIX,March 2024,https://www.volatilityshares.com/uploads/filling_doc/56-96-77-103-VS-Trust-Monthly-Statement-33124-Confidential.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+UVIX,March 2024,https://www.volatilityshares.com/uploads/filling_doc/94-134-76-102-VS-Trust-Monthly-Statement-33124-Confidential.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+SVIX,February 2024,https://www.volatilityshares.com/uploads/filling_doc/55-95-54-78-VS-Trust-Monthly-Statement-22924.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+UVIX,February 2024,https://www.volatilityshares.com/uploads/filling_doc/93-133-53-79-VS-Trust-Monthly-Statement-22924.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+SVIX,January 2024,https://www.volatilityshares.com/uploads/filling_doc/54-93-56-73-VS-Trust-Monthly-Statement-13124.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+UVIX,January 2024,https://www.volatilityshares.com/uploads/filling_doc/92-132-55-72-VS-Trust-Monthly-Statement-13124.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+SVIX,December 2023,https://www.volatilityshares.com/uploads/filling_doc/53-92-49-67-VS-Trust-Monthly-Statement-123123.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+UVIX,December 2023,https://www.volatilityshares.com/uploads/filling_doc/91-131-48-68-VS-Trust-Monthly-Statement-123123.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+SVIX,November 2023,https://www.volatilityshares.com/uploads/filling_doc/52-94-50-65-VS-Trust-Monthly-Statement-113023.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+UVIX,November 2023,https://www.volatilityshares.com/uploads/filling_doc/90-130-51-66-VS-Trust-Monthly-Statement-113023.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+SVIX,October 2023,https://www.volatilityshares.com/uploads/filling_doc/51-90-45-61-VS-Trust-Monthly-Statement-103123.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+UVIX,October 2023,https://www.volatilityshares.com/uploads/filling_doc/89-129-44-62-VS-Trust-Monthly-Statement-103123.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+SVIX,September 2023,https://www.volatilityshares.com/uploads/filling_doc/50-89-40-59-VS-Trust-Monthly-Statement-93023.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+UVIX,September 2023,https://www.volatilityshares.com/uploads/filling_doc/88-128-41-60-VS-Trust-Monthly-Statement-93023.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+SVIX,August 2023,https://www.volatilityshares.com/uploads/filling_doc/49-88-43-54-VS-Trust-Monthly-Statement-83123.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+UVIX,August 2023,https://www.volatilityshares.com/uploads/filling_doc/87-127-42-53-VS-Trust-Monthly-Statement-83123.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+SVIX,July 2023,https://www.volatilityshares.com/uploads/filling_doc/48-87-37-47-VS-Trust-Monthly-Statement-73123.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+UVIX,July 2023,https://www.volatilityshares.com/uploads/filling_doc/86-126-38-48-VS-Trust-Monthly-Statement-73123.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+SVIX,June 2023,https://www.volatilityshares.com/uploads/filling_doc/47-86-35-45-VS-Trust-Monthly-Statement-63023.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+UVIX,June 2023,https://www.volatilityshares.com/uploads/filling_doc/85-125-36-46-VS-Trust-Monthly-Statement-63023.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+SVIX,May 2023,https://www.volatilityshares.com/uploads/filling_doc/46-85-34-44-VS-Trust-Monthly-Statement-53123.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+UVIX,May 2023,https://www.volatilityshares.com/uploads/filling_doc/84-124-33-43-VS-Trust-Monthly-Statement-53123.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+SVIX,April 2023,https://www.volatilityshares.com/uploads/filling_doc/45-84-30-40-VS-Trust-Monthly-Statement-43023-.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+UVIX,April 2023,https://www.volatilityshares.com/uploads/filling_doc/83-123-29-39-VS-Trust-Monthly-Statement-43023-.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+SVIX,March 2023,https://www.volatilityshares.com/uploads/filling_doc/44-83-13-35-VS-Trust-Monthly-Statement-33123.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+UVIX,March 2023,https://www.volatilityshares.com/uploads/filling_doc/82-122-25-36-VS-Trust-Monthly-Statement-33123.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+SVIX,February 2023,https://www.volatilityshares.com/uploads/filling_doc/43-82-27-32-February-2023-Monthly-Statement.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+UVIX,February 2023,https://www.volatilityshares.com/uploads/filling_doc/81-121-26-33-February-2023-Monthly-Statement.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+SVIX,January 2023,https://www.volatilityshares.com/uploads/filling_doc/42-81-11-12-VS-Trust-Monthly-Statement-13123.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+UVIX,January 2023,https://www.volatilityshares.com/uploads/filling_doc/80-120-23-26-VS-Trust-Monthly-Statement-13123.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+SVIX,December 2022,https://www.volatilityshares.com/uploads/filling_doc/41-80-10-11-VS-Trust-Monthly-Statement-123122.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+UVIX,December 2022,https://www.volatilityshares.com/uploads/filling_doc/79-119-22-25-VS-Trust-Monthly-Statement-123122.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+SVIX,November 2022,https://www.volatilityshares.com/uploads/filling_doc/40-79-9-10-November-2022-Monthly-Statement.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+UVIX,November 2022,https://www.volatilityshares.com/uploads/filling_doc/78-118-21-24-November-2022-Monthly-Statement.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+SVIX,October 2022,https://www.volatilityshares.com/uploads/filling_doc/39-78-8-9-VS-Trust-Monthly-Statement-103122.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+UVIX,October 2022,https://www.volatilityshares.com/uploads/filling_doc/77-117-20-23-VS-Trust-Monthly-Statement-103122.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+SVIX,September 2022,https://www.volatilityshares.com/uploads/filling_doc/38-77-7-8-VS-Trust-Monthly-Statement-93022.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+UVIX,September 2022,https://www.volatilityshares.com/uploads/filling_doc/76-116-19-22-VS-Trust-Monthly-Statement-93022.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+SVIX,August 2022,https://www.volatilityshares.com/uploads/filling_doc/37-76-6-6-VS-Trust-Monthly-Statement-August-2022.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+UVIX,August 2022,https://www.volatilityshares.com/uploads/filling_doc/75-115-18-20-VS-Trust-Monthly-Statement-August-2022.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+SVIX,July 2022,https://www.volatilityshares.com/uploads/filling_doc/36-75-5-5-VS-Trust-Monthly-Statement-July-2022.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+UVIX,July 2022,https://www.volatilityshares.com/uploads/filling_doc/74-114-17-19-VS-Trust-Monthly-Statement-July-2022.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+SVIX,June 2022,https://www.volatilityshares.com/uploads/filling_doc/35-74-4-4-VS-Trust-Monthly-Statement-63022-1.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+UVIX,June 2022,https://www.volatilityshares.com/uploads/filling_doc/73-113-16-18-VS-Trust-Monthly-Statement-63022.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+SVIX,May 2022,https://www.volatilityshares.com/uploads/filling_doc/34-73-2-2-VS-Trust-Monthly-Statement-53122.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+UVIX,May 2022,https://www.volatilityshares.com/uploads/filling_doc/72-112-15-17-VS-Trust-Monthly-Statement-53122.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+SVIX,April 2022,https://www.volatilityshares.com/uploads/filling_doc/33-72-1-1-VS-Trust-Monthly-Statement-04302022.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
+UVIX,April 2022,https://www.volatilityshares.com/uploads/filling_doc/71-111-14-16-VS-Trust-Monthly-Statement-04302022.pdf,OFFICIAL_VS_MONTHLY_STATEMENT_INDEX
 UNASSIGNED,,https://www.volatilityshares.com/uploads/filling_doc/13-71-74-98-ZIVB-N-PX-06302024.pdf,OFFICIAL_VS_DOCUMENT_INDEX
 UNASSIGNED,,https://www.volatilityshares.com/uploads/filling_doc/12-63-10K-2025-VSTrust.pdf,OFFICIAL_VS_DOCUMENT_INDEX
 UNASSIGNED,,https://www.volatilityshares.com/uploads/filling_doc/12-64-VSTrust10QAsFiled20260630.pdf,OFFICIAL_VS_DOCUMENT_INDEX
@@ -240,109 +346,3 @@ UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/343-389
 UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/347-393-302-341-ETHUForm893720250228.pdf,OFFICIAL_VS_DOCUMENT_INDEX
 UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/349-395-318-355-WHTXForm893720250228-1.pdf,OFFICIAL_VS_DOCUMENT_INDEX
 UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/344-390-303-342-ZVOLForm893720250228.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/375-421-VSTrustMonthlyStatement20260831.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/376-422-VSTrustMonthlyStatement20260831.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/357-403-VSTrustMonthlyStatement20260731.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/358-404-VSTrustMonthlyStatement20260731.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/325-371-VSTrustMonthlyStatement20260630.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/326-372-VSTrustMonthlyStatement20260630.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/323-369-VSTrustMonthlyStatement20260531.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/324-370-VSTrustMonthlyStatement20260531.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/303-342-VSTrustMonthlyStatement20260430.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/304-343-VSTrustMonthlyStatement20260430.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/275-314-VSTrustMonthlyStatement20260331.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/276-315-VSTrustMonthlyStatement20260331.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/264-303-VSTrustMonthlyStatement20260228.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/265-304-VSTrustMonthlyStatement20260228.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/253-0-253-292-VSTrustMonthlyStatement20260131.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/254-0-254-293-VSTrustMonthlyStatement20260131.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/242-281-VS-Trust-Monthly-Statement-123125-Confidential-Signed.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/243-282-VS-Trust-Monthly-Statement-123125-Confidential-Signed.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/240-279-VS-Trust-Monthly-Statement-113025-Confidential-Signed.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/241-280-VS-Trust-Monthly-Statement-113025-Confidential-Signed.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/210-253-VS-Trust-Monthly-Statement-103125-Confidential-Signed.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/211-254-VS-Trust-Monthly-Statement-103125-Confidential-Signed.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/199-242-VS-Trust-Monthly-Statement-93025-Confidential-Signed.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/200-243-VS-Trust-Monthly-Statement-93025-Confidential-Signed.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/188-231-VS-Trust-Monthly-Statement-83125-Confidential-Signed.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/189-232-VS-Trust-Monthly-Statement-83125-Confidential-Signed.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/177-0-177-220-VSTrust-MonthlyStatement-73125-Confidential-Signed.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/178-0-178-221-VSTrust-MonthlyStatement-73125-Confidential-Signed.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/111-0-VSTrust-MonthlyStatement-63025-Confidential.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/112-155-VSTrust-MonthlyStatement-63025-Confidential.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/70-0-70-151-166-243-VS-Trust-Monthly-Statement-53125-Confidential-Signed-1.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/108-148-167-244-VS-Trust-Monthly-Statement-53125-Confidential-Signed.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/69-109-135-228-VSTrust-MonthlyStatement-43025-Confidential.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/107-147-136-229-VSTrust-MonthlyStatement-43025-Confidential.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/68-108-137-193-VS-Trust-Monthly-Statement-33125-Confidential-Signed.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/106-146-138-194-VS-Trust-Monthly-Statement-33125-Confidential-Signed.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/67-107-126-180-VSTrust-MonthlyStatement-22825-Confidential.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/105-145-127-181-VSTrust-MonthlyStatement-22825-Confidential.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/66-106-125-177-VSTrust-MonthlyStatement-13125-ConfidentialDraft2.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/104-144-111-176-VSTrust-MonthlyStatement-13125-ConfidentialDraft2.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/65-105-113-163-VSTrust-MonthlyStatement-123124-Confidential-Signed.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/103-143-114-164-VSTrust-MonthlyStatement-123124-Confidential-Signed.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/64-104-86-138-VS-Trust-Monthly-Statement-113024-Confidential-Signed.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/102-142-87-139-VS-Trust-Monthly-Statement-113024-Confidential-Signed.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/63-103-88-136-VS-Trust-Monthly-Statement-103124-Confidential-v2-Signed.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/101-141-89-137-VS-Trust-Monthly-Statement-103124-Confidential-v2-Signed.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/62-102-78-124-VS-Trust-Monthly-Statement-93024-Confidential-Signed.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/100-140-79-125-VS-Trust-Monthly-Statement-93024-Confidential-Signed.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/61-101-70-122-VS-Trust-Monthly-Statement-83124-Confidential-Signed.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/99-139-71-123-VS-Trust-Monthly-Statement-83124-Confidential-Signed.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/60-100-72-95-July-2024-Monthly-Statement.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/98-138-73-96-July-2024-Monthly-Statement.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/59-99-69-92-VS-Trust-Monthly-Statement-63024.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/97-137-68-91-VS-Trust-Monthly-Statement-63024.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/58-98-64-89-Monthly-Statement-53124.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/96-136-63-88-Monthly-Statement-53124.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/57-97-65-86-VS-Trust-Monthly-Statement-43024.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/95-135-66-87-VS-Trust-Monthly-Statement-43024.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/56-96-77-103-VS-Trust-Monthly-Statement-33124-Confidential.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/94-134-76-102-VS-Trust-Monthly-Statement-33124-Confidential.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/55-95-54-78-VS-Trust-Monthly-Statement-22924.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/93-133-53-79-VS-Trust-Monthly-Statement-22924.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/54-93-56-73-VS-Trust-Monthly-Statement-13124.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/92-132-55-72-VS-Trust-Monthly-Statement-13124.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/53-92-49-67-VS-Trust-Monthly-Statement-123123.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/91-131-48-68-VS-Trust-Monthly-Statement-123123.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/52-94-50-65-VS-Trust-Monthly-Statement-113023.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/90-130-51-66-VS-Trust-Monthly-Statement-113023.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/51-90-45-61-VS-Trust-Monthly-Statement-103123.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/89-129-44-62-VS-Trust-Monthly-Statement-103123.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/50-89-40-59-VS-Trust-Monthly-Statement-93023.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/88-128-41-60-VS-Trust-Monthly-Statement-93023.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/49-88-43-54-VS-Trust-Monthly-Statement-83123.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/87-127-42-53-VS-Trust-Monthly-Statement-83123.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/48-87-37-47-VS-Trust-Monthly-Statement-73123.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/86-126-38-48-VS-Trust-Monthly-Statement-73123.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/47-86-35-45-VS-Trust-Monthly-Statement-63023.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/85-125-36-46-VS-Trust-Monthly-Statement-63023.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/46-85-34-44-VS-Trust-Monthly-Statement-53123.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/84-124-33-43-VS-Trust-Monthly-Statement-53123.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/45-84-30-40-VS-Trust-Monthly-Statement-43023-.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/83-123-29-39-VS-Trust-Monthly-Statement-43023-.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/44-83-13-35-VS-Trust-Monthly-Statement-33123.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/82-122-25-36-VS-Trust-Monthly-Statement-33123.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/43-82-27-32-February-2023-Monthly-Statement.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/81-121-26-33-February-2023-Monthly-Statement.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/42-81-11-12-VS-Trust-Monthly-Statement-13123.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/80-120-23-26-VS-Trust-Monthly-Statement-13123.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/41-80-10-11-VS-Trust-Monthly-Statement-123122.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/79-119-22-25-VS-Trust-Monthly-Statement-123122.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/40-79-9-10-November-2022-Monthly-Statement.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/78-118-21-24-November-2022-Monthly-Statement.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/39-78-8-9-VS-Trust-Monthly-Statement-103122.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/77-117-20-23-VS-Trust-Monthly-Statement-103122.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/38-77-7-8-VS-Trust-Monthly-Statement-93022.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/76-116-19-22-VS-Trust-Monthly-Statement-93022.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/37-76-6-6-VS-Trust-Monthly-Statement-August-2022.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/75-115-18-20-VS-Trust-Monthly-Statement-August-2022.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/36-75-5-5-VS-Trust-Monthly-Statement-July-2022.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/74-114-17-19-VS-Trust-Monthly-Statement-July-2022.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/35-74-4-4-VS-Trust-Monthly-Statement-63022-1.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/73-113-16-18-VS-Trust-Monthly-Statement-63022.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/34-73-2-2-VS-Trust-Monthly-Statement-53122.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/72-112-15-17-VS-Trust-Monthly-Statement-53122.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/33-72-1-1-VS-Trust-Monthly-Statement-04302022.pdf,OFFICIAL_VS_DOCUMENT_INDEX
-UNASSIGNED,Download,https://www.volatilityshares.com/uploads/filling_doc/71-111-14-16-VS-Trust-Monthly-Statement-04302022.pdf,OFFICIAL_VS_DOCUMENT_INDEX
