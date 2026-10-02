@@ -842,4 +842,33 @@ The best current candidate is simpler:
 
 The V2 execution-realism stage is complete: the live IG DFB venue gate passed and frozen P90 survives representative costs and 2x spread stress, while P80 is demoted and P95 remains a sparse secondary subset.
 
-The project is now in **V3 prospective validation**, not historical search. On the current QuantConnect Free plan, the frozen signal is checked manually in QC using `main_free_forward_check.py`; when P90 triggers, the signal is armed in GitHub and the scheduled read-only IG workflow captures live 09:31-10:00 bid/offer data automatically. The paid QC API runner remains dormant and is not required. No rule changes are permitted inside that forward sample.
+The project is now in **V3 prospective validation**, not historical search. On the current QuantConnect Free plan, QuantConnect **Research** is the authoritative source. Because Research can lag by one session, a pre-registered provisional source bridge may use a free recent QQQ minute feed only to decide whether to arm the next-morning read-only IG capture; QuantConnect later confirms formal V3 inclusion. The bridge is not allowed to replace the formal signal source. No rule changes are permitted inside the forward sample.
+
+
+---
+
+## 21. R1 mandated rebalancing
+
+R1 was frozen before first project run and tested a published 60/40 threshold/calendar rebalancing mechanism against a generic 5-day ES-minus-ZN reversal control.
+
+Post-paper holdout (2023-03-20 to 2026-09-30):
+- Threshold slope remained negative at -0.188, preserving the predicted sign but with wide uncertainty;
+- Threshold strategy Sharpe -0.102;
+- Combined strategy annualized return 0.80%, Sharpe 0.158;
+- frozen 5-day reversal control annualized return 5.24%, Sharpe 0.341.
+
+Under the pre-written gate, the rebalancing construction had no meaningful informational advantage over generic reversal. **R1 is therefore DEPRIORITIZED and R1.1 must not run.** Do not tune thresholds, month windows, scaling or control horizon on this sample.
+
+Canonical result: branch `research/r1-mandated-rebalancing`, file `research/r1_mandated_rebalancing/RESULTS_R1.md`.
+
+## 22. V2.5 sealed Q3 2026 holdout
+
+A previously inaccessible July-September 2026 period was pre-registered before being opened through QuantConnect Research. Frozen P90/09:31 produced 8 events with +3.46 bp base net mean and +3.12 bp at 2x spread, but the result becomes negative after removing the single best event. Treat as **supplementary positive but fragile**, not a V3 pass.
+
+Canonical files: branch `research/index-morning-fade-ig`, `research/index_large_move_reversal/results_v2_5/RESULTS_SEALED_Q3_2026.md` and `SEALED_Q3_LEDGER.csv`.
+
+## 23. Current operating state and next hypothesis
+
+V3 remains the only active trading candidate and must continue prospectively until at least 30 P90 events and 12 calendar months. The current durable next action is stored at `research/index_large_move_reversal/forward_shadow/NEXT_ACTION.md`.
+
+There is no other high-priority frozen untouched trading hypothesis waiting to run. The next new research direction is **O1 — options dealer gamma / forced hedging**, currently feasibility/literature only. Before any historical outcome test, establish SPX/SPXW option-history access in the Free QC Research environment and freeze the exposure proxy, control, sample split and economic gate.
