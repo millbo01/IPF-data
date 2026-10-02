@@ -26,9 +26,12 @@ P95 = 2.3646
 
 class NdxForwardSignalChecker(QCAlgorithm):
     def initialize(self):
-        # Keep a long enough history window for the rolling z-score.
-        self.set_start_date(2024, 1, 1)
-        self.set_end_date(2026, 12, 31)
+        # Dynamic ~1000-day window: long enough for the frozen 252-session
+        # prior-only z-score and usable throughout the prospective phase.
+        today = datetime.utcnow().date()
+        start = today - timedelta(days=1000)
+        self.set_start_date(start.year, start.month, start.day)
+        self.set_end_date(today.year, today.month, today.day)
         self.set_cash(100000)
         self.set_time_zone(TimeZones.NEW_YORK)
 
