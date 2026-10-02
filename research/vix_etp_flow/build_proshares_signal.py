@@ -9,7 +9,23 @@ ROOT = Path("data/vix_etp_flow/backfill")
 IN = ROOT / "proshares_daily_aum.csv"
 OUT = ROOT / "proshares_forced_flow_daily.csv"
 
-BETA = {"UVXY": 1.5, "VIXY": 1.0, "SVXY": -0.5}
+# Historical daily objectives. ProShares changed both UVXY and SVXY effective
+# after the close on 2018-02-27:
+#   UVXY: 2.0x -> 1.5x
+#   SVXY: -1.0x -> -0.5x
+CHANGE_DATE = pd.Timestamp("2018-02-28")
+
+
+def beta_series(ticker: str, index: pd.DatetimeIndex) -> pd.Series:
+    if ticker == "UVXY":
+        vals = np.where(index < CHANGE_DATE, 2.0, 1.5)
+    elif ticker == "SVXY":
+        vals = np.where(index < CHANGE_DATE, -1.0, -0.5)
+    elif ticker == "VIXY":
+        vals = np.ones(len(index), dtype=float)
+    else:
+        raise KeyError(ticker)
+    return pd.Series(vals, index=index, dtype=float)
 
 
 def main() -> None:
@@ -34,16 +50,20 @@ def main() -> None:
     flow_pieces = []
     scale_pieces = []
     present_pieces = []
-    for ticker, beta in BETA.items():
+
+    for ticker in ("UVXY", "VIXY", "SVXY"):
         aum = piv_aum[ticker] if ticker in piv_aum else pd.Series(index=out.index, dtype=float)
         lag_aum = aum.shift(1)
+        beta = beta_series(ticker, out.index)
         coef = beta * (beta - 1.0)
         scale = coef * lag_aum
         flow = scale * out["benchmark_return_proxy"]
+
         out[f"{ticker.lower()}_lag_aum"] = lag_aum
         out[f"{ticker.lower()}_beta"] = beta
         out[f"{ticker.lower()}_convexity_scale_usd"] = scale
         out[f"{ticker.lower()}_rebalance_usd"] = flow
+
         flow_pieces.append(flow.rename(ticker))
         scale_pieces.append(scale.rename(ticker))
         present_pieces.append(lag_aum.notna().rename(ticker))
@@ -64,19 +84,33 @@ def main() -> None:
     out["products_present"] = present_df.sum(axis=1)
     out["signal_quality"] = np.where(
         out["products_present"] >= 2,
-        "PROSHARES_DAILY_AUM",
+        "PROSHARES_DAILY_AUM_HISTORICAL_BETA",
         "PARTIAL_PROSHARES",
     )
 
-    # VIXY has beta*(beta-1)=0 for leverage rebalancing. It remains useful as the
-    # public 1x intraday/full-day benchmark proxy; calendar roll is a separate signal.
     out = out.reset_index()
     out.to_csv(OUT, index=False)
 
     z = out.dropna(subset=["aggregate_convexity_scale_usd"])
-    print(f"rows={len(out)} usable={len(z)} start={z.date.min() if len(z) else None} end={z.date.max() if len(z) else None}")
+    print(
+        f"rows={len(out)} usable={len(z)} "
+        f"start={z.date.min() if len(z) else None} "
+        f"end={z.date.max() if len(z) else None}"
+    )
     if len(z):
-        print(z[["date", "aggregate_convexity_per_1pct_usd", "benchmark_return_proxy", "aggregate_rebalance_usd", "products_present"]].tail(10).to_string(index=False))
+        print(
+            z[
+                [
+                    "date",
+                    "uvxy_beta",
+                    "svxy_beta",
+                    "aggregate_convexity_per_1pct_usd",
+                    "benchmark_return_proxy",
+                    "aggregate_rebalance_usd",
+                    "products_present",
+                ]
+            ].tail(10).to_string(index=False)
+        )
 
 
 if __name__ == "__main__":

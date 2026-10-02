@@ -1,0 +1,3 @@
+dataset,rows,tickers,start,end
+proshares_daily_aum,11499,"SVXY,UVXY,VIXY",2011-01-03,2026-09-30
+volatilityshares_statement_index,347,UNASSIGNED,,
