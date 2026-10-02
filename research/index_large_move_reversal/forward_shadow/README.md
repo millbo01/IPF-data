@@ -2,6 +2,33 @@
 
 This directory is the canonical prospective ledger for the frozen V3 validation defined in `../SPEC_V3_FORWARD_SHADOW.md`.
 
+## Current operating mode — QuantConnect Free plan
+
+The project is currently running the forward phase with **manual QuantConnect signal checks plus automated read-only IG capture**.
+
+QuantConnect Cloud API automation is not required for the V3 research design. The paid-API runner remains in the repository as dormant infrastructure only.
+
+### User workflow after each US trading session
+
+Run this file in the existing/free QuantConnect backtester after the regular US close:
+
+`../main_free_forward_check.py`
+
+It places no orders and prints one authoritative line beginning:
+
+`FORWARD_CHECK,`
+
+Expected outcomes:
+
+- `FORWARD_CHECK,NO_SIGNAL,...`
+- `FORWARD_CHECK,P90_TRIGGER,...,P95=yes/no,...`
+
+If there is **NO_SIGNAL**, nothing else is required.
+
+If there is a **P90_TRIGGER**, pass that single output line to the research agent. The agent records the frozen signal in `pending_signal.json` on this branch. The scheduled read-only IG capture workflow then handles the next morning automatically.
+
+Do not edit thresholds, timestamps, dates, or signal logic in the checker.
+
 ## Frozen rule
 
 - QQQ previous regular close -> 15:45 New York return
@@ -17,41 +44,38 @@ This directory is the canonical prospective ledger for the frozen V3 validation 
 - 5% margin model
 - no live orders
 
-## Automation
-
-### Nightly signal
-
-Default-branch workflow:
-`.github/workflows/ndx-forward-shadow-qc-signal.yml`
+## Signal checker
 
 Research-branch code:
-- `../qc_forward_signal.py` — frozen QuantConnect signal algorithm
-- `../qc_cloud_forward.py` — QuantConnect Cloud API runner
 
-The workflow runs after the US close, creates/reuses a QuantConnect project named `IPF NDX Forward Shadow`, syncs the frozen signal code, compiles it, runs it, and records:
+- `../main_free_forward_check.py` — current Free-tier manual checker
+- `../qc_forward_signal.py` — API-runner version of the same frozen signal logic
+- `../qc_cloud_forward.py` — dormant QuantConnect Cloud API runner
 
-- `latest_signal.json`
-- `signal_history.csv`
-- `pending_signal.json` only when a current-session P90 trigger fires
+The manual checker uses a rolling current-date backtest window long enough to calculate the frozen 252-session prior-only z-score. It emits only the latest completed session's status.
 
-QuantConnect API credentials are stored only as GitHub secrets and are never written to the repository.
-
-Required GitHub secrets:
-- `QC_USER_ID`
-- `QC_API_TOKEN`
-
-Optional:
-- `QC_ORGANIZATION_ID`
-
-### Morning IG capture
+## Paid QuantConnect API automation — dormant
 
 Default-branch workflow:
+
+`.github/workflows/ndx-forward-shadow-qc-signal.yml`
+
+This workflow is **manual-dispatch only** on the current Free plan. Its old nightly schedule has been disabled so it cannot generate failed jobs or imply that an upgrade is required.
+
+If paid QuantConnect API access is ever available later, the workflow can be re-enabled without changing the frozen trading rule.
+
+## Morning IG capture
+
+Default-branch workflow:
+
 `.github/workflows/ndx-forward-shadow-ig-capture.yml`
 
 Research-branch code:
+
 - `../shadow_ig_capture.py`
 
 On an armed P90 event, the read-only IG process:
+
 1. waits for 09:31 New York;
 2. records live bid/offer;
 3. samples the market about once per minute for prospective MAE;
@@ -64,7 +88,7 @@ On an armed P90 event, the read-only IG process:
 
 Existing IG repository secrets are reused.
 
-No dealing/order endpoint is called by either workflow.
+No dealing/order endpoint is called.
 
 ## Timing discipline
 
@@ -75,6 +99,7 @@ If the correct job starts more than 90 seconds after 09:31:05, the event is reco
 ## Formal adjudication
 
 Do not make a final V3 pass/fail call until both are true:
+
 - at least 30 P90 events;
 - at least 12 calendar months from the first forward-eligible signal.
 
