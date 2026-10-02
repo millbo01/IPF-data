@@ -23,21 +23,31 @@ Current state:
 - Equity leveraged-ETF pressure looked promising but ablation showed too little incremental information beyond plain intraday index moves.
 - Current active candidate is a plain Nasdaq large-move reversal pattern.
 
+Important repository update:
+- PR #15, `Research/index morning fade ig`, has now been merged to `main`.
+- It already contains the frozen next experiment and companion code:
+  - `research/index_large_move_reversal/SPEC_V2_IG_EXECUTION.md`
+  - `research/index_large_move_reversal/VENUE_FACTS_2026-10-02.md`
+  - `research/index_large_move_reversal/ig_dfb_probe.py`
+  - `research/index_large_move_reversal/qc_ig_execution_v2.py`
+- Review those files first. Do not independently redesign the experiment before reading them.
+
 Immediate task:
-Test an executable small-account version of the NDX/QQQ next-session morning fade.
+Execute/review the small-account IG version of the NDX/QQQ next-session morning fade using the already-frozen PR #15 specification.
 
 Signal:
 - prior day 15:45 New York return from previous regular-session close, standardized with a rolling z-score using prior observations only.
-- Carry forward fixed build-derived NDX thresholds from the anatomy study:
+- fixed NDX thresholds:
   - P80 = 1.2681
   - P90 = 1.7796
   - P95 = 2.3646
 
 Trade:
 - day T+1, fade the sign of day T's move.
-- initial entry = 09:31 New York.
+- primary entry = 09:31 New York.
 - exit = 10:00 New York.
-- do not assume overnight exposure.
+- no overnight exposure.
+- 09:32 and 09:35 are sensitivity checks only.
 
 Key prior results:
 - NDX build 2012-18 morning reversal: P80 +2.118 bp, P90 +6.083, P95 +13.739.
@@ -46,16 +56,12 @@ Key prior results:
 - 2025-26 P95 has only 13 events, so do not overstate certainty.
 - 2019-21 is a distinct extraordinary overnight-reversal regime and should not set current expected returns.
 
-Next experiment requirements:
-1. Identify/confirm the appropriate IG NASDAQ / US Tech spread-bet instrument.
-2. Get current or representative minimum stake, margin and opening-session spread.
-3. Translate QQQ/NDX gross basis-point returns into actual £2,000 account economics.
-4. Test P80/P90/P95 unchanged.
-5. Report gross/net mean, median, hit rate, trade count, yearly chronology, max DD, margin, ending equity, and break-even cost.
-6. If possible, test entry sensitivity at 09:31, 09:32 and 09:35, but do not optimize by selecting the best timestamp on the same sample.
-7. Produce a full trade ledger.
-8. Keep SPX only as a robustness comparator.
-9. Do not revive VIX-ETP or LETF causal stories unless genuinely new independent evidence warrants it.
+Execution requirements are already frozen in PR #15:
+- IG US Tech 100 DFB as the preferred venue representation.
+- Public-minimum and conditional 0.01-point stake cases.
+- Base and 2x spread stress.
+- Full trade ledger, MAE, margin, drawdown, yearly chronology and SPX comparator.
+- Do not add MAIN, LC1, VIX-ETP, LETF pressure or other filters in this experiment.
 
 Working preference:
 Lead the workflow and minimize manual tasks. Use GitHub as the canonical source of truth. Preserve negative findings rather than optimizing around them.
