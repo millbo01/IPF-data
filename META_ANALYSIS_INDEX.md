@@ -65,6 +65,10 @@ Key files:
 - `research/index_large_move_reversal/results_v2/SPX_IG_FADE_V2_SUMMARY.csv`
 - `research/index_large_move_reversal/SPEC_V3_FORWARD_SHADOW.md`
 - `research/index_large_move_reversal/SPEC_V3_FORWARD_SHADOW_AMENDMENT_FREE_TIER.md`
+- `research/index_large_move_reversal/SPEC_V3_FORWARD_SHADOW_AMENDMENT_2_RESEARCH.md`
+- `research/index_large_move_reversal/qc_research_forward_check.py`
+- `research/index_large_move_reversal/results_v2_5/RESULTS_SEALED_Q3_2026.md`
+- `research/index_large_move_reversal/results_v2_5/SEALED_Q3_LEDGER.csv`
 - `research/index_large_move_reversal/main_free_forward_check.py`
 - `research/index_large_move_reversal/forward_shadow/README.md`
 - `.github/workflows/ndx-forward-shadow-qc-signal.yml`
@@ -80,7 +84,7 @@ V2 executable-economics result:
 
 ## Current state in one paragraph
 
-Original MAIN still has a positive unrounded research edge, but broad £2,000 IG implementation fails under observed spreads. LC1 validates receiving-capacity effects on immediate price impact but did not produce a stable standalone trade. Modern VIX ETP and equity LETF forced-flow trading stories were tested and demoted. The surviving active candidate is the plain Nasdaq large-move next-session morning fade. Its live IG venue gate passed, and V2 shows that the broad P80 version is too weak, while frozen P90/09:31 survives representative costs and 2x spread stress in the post-2021 regime. P95 is stronger but sparse and unstable across regimes. 2026-to-date is negative, so the result is not a deployment green light. The next stage is the frozen V3 forward shadow/paper validation. On the current QuantConnect Free plan, the signal check is run manually in QC using `main_free_forward_check.py`; a `P90_TRIGGER` is then armed in GitHub and the existing scheduled read-only IG workflow captures live 09:31-10:00 quotes automatically. Paid QC API automation remains dormant and is not required.
+Original MAIN still has a positive unrounded research edge, but broad £2,000 IG implementation fails under observed spreads. LC1 validates receiving-capacity effects on immediate price impact but did not produce a stable standalone trade. Modern VIX ETP and equity LETF forced-flow trading stories were tested and demoted. The surviving active candidate is the plain Nasdaq large-move next-session morning fade. Its live IG venue gate passed, and V2 shows that the broad P80 version is too weak, while frozen P90/09:31 survives representative costs and 2x spread stress in the post-2021 regime. P95 is stronger but sparse and unstable across regimes. 2026-to-date is negative, so the result is not a deployment green light. The next stage is the frozen V3 forward shadow/paper validation. On the current QuantConnect Free plan, the authoritative signal check is run manually in QuantConnect Research using `qc_research_forward_check.py`; a `P90_TRIGGER` is then armed in GitHub and the existing scheduled read-only IG workflow captures live 09:31-10:00 quotes automatically. The sealed Q3 2026 holdout was positive but fragile: P90 +3.46 bp net across 8 events, turning negative when the single best event is removed. Paid QC API automation remains dormant and is not required.
 
 ## Rule for future agents
 
