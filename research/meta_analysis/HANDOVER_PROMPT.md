@@ -82,10 +82,14 @@ Current known state as of 2026-10-02:
 
 `research/RESEARCH_QUEUE.md` defines O1 — **options dealer gamma / forced hedging** — as the next new direction.
 
-O1 is **feasibility/literature only; not yet a frozen outcome test**.
+O1 has a **frozen data-feasibility gate, but no frozen outcome test**.
+
+Branch: `research/options-dealer-gamma`
+- `research/options_dealer_gamma/SPEC_O1_FEASIBILITY.md`
+- `research/options_dealer_gamma/qc_research_o1_spxw_feasibility.py`
 
 Before any outcome analysis:
-1. determine whether the Free QC Research environment can retrieve sufficient SPX/SPXW option-chain history;
+1. run the exact two-date Free QC Research feasibility diagnostic without changing the probe dates;
 2. define an ex-ante gamma-pressure proxy without pretending gross 0DTE volume or unsigned OI directly equals dealer exposure;
 3. define a simple same-drift control;
 4. freeze build/holdout split and pass/fail rule;
