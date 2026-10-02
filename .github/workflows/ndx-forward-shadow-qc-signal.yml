@@ -1,0 +1,62 @@
+name: NDX Forward Shadow - QC Signal
+
+on:
+  workflow_dispatch:
+  schedule:
+    # 22:15 UTC is safely after the regular US close in both NY DST states.
+    - cron: "15 22 * * 1-5"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ndx-forward-shadow-signal
+  cancel-in-progress: false
+
+jobs:
+  signal:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      QC_USER_ID: ${{ secrets.QC_USER_ID }}
+      QC_API_TOKEN: ${{ secrets.QC_API_TOKEN }}
+      QC_ORGANIZATION_ID: ${{ secrets.QC_ORGANIZATION_ID }}
+      QC_PROJECT_NAME: IPF NDX Forward Shadow
+
+    steps:
+      - name: Checkout research branch
+        uses: actions/checkout@v4
+        with:
+          ref: research/index-morning-fade-ig
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: python -m pip install --upgrade requests pandas exchange-calendars
+
+      - name: Validate QuantConnect secrets
+        shell: bash
+        run: |
+          test -n "$QC_USER_ID" || (echo "Missing repository secret: QC_USER_ID" && exit 1)
+          test -n "$QC_API_TOKEN" || (echo "Missing repository secret: QC_API_TOKEN" && exit 1)
+
+      - name: Run frozen QC signal job
+        run: python research/index_large_move_reversal/qc_cloud_forward.py
+
+      - name: Commit forward signal state
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A research/index_large_move_reversal/forward_shadow
+          if git diff --cached --quiet; then
+            echo "No forward signal state changes."
+          else
+            git commit -m "Update NDX forward-shadow signal state"
+            git pull --rebase origin research/index-morning-fade-ig
+            git push origin HEAD:research/index-morning-fade-ig
+          fi
