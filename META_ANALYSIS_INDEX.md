@@ -59,7 +59,14 @@ Key files:
 - `research/index_large_move_reversal/IG_DFB_PROBE_LATEST.md`
 - `research/index_large_move_reversal/main.py`
 - `research/index_large_move_reversal/RESULTS_V2_IG_EXECUTION.md`
+- `research/index_large_move_reversal/results_v2/NDX_IG_FADE_V2_TRADE_LEDGER.csv`
+- `research/index_large_move_reversal/results_v2/NDX_IG_FADE_V2_SUMMARY.csv`
+- `research/index_large_move_reversal/results_v2/NDX_IG_FADE_V2_YEARLY.csv`
+- `research/index_large_move_reversal/results_v2/SPX_IG_FADE_V2_SUMMARY.csv`
 - `research/index_large_move_reversal/SPEC_V3_FORWARD_SHADOW.md`
+- `research/index_large_move_reversal/forward_shadow/README.md`
+- `.github/workflows/ndx-forward-shadow-qc-signal.yml`
+- `.github/workflows/ndx-forward-shadow-ig-capture.yml`
 
 V2 executable-economics result:
 - live IG GBP spread-bet account confirms US Tech 100 DFB at 0.01 POINTS minimum and 5% first-band margin;
@@ -71,7 +78,7 @@ V2 executable-economics result:
 
 ## Current state in one paragraph
 
-Original MAIN still has a positive unrounded research edge, but broad £2,000 IG implementation fails under observed spreads. LC1 validates receiving-capacity effects on immediate price impact but did not produce a stable standalone trade. Modern VIX ETP and equity LETF forced-flow trading stories were tested and demoted. The surviving active candidate is the plain Nasdaq large-move next-session morning fade. Its live IG venue gate passed, and V2 shows that the broad P80 version is too weak, while frozen P90/09:31 survives representative costs and 2x spread stress in the post-2021 regime. P95 is stronger but sparse and unstable across regimes. 2026-to-date is negative, so the result is not a deployment green light. The next stage is forward shadow/paper validation, not retrospective optimization.
+Original MAIN still has a positive unrounded research edge, but broad £2,000 IG implementation fails under observed spreads. LC1 validates receiving-capacity effects on immediate price impact but did not produce a stable standalone trade. Modern VIX ETP and equity LETF forced-flow trading stories were tested and demoted. The surviving active candidate is the plain Nasdaq large-move next-session morning fade. Its live IG venue gate passed, and V2 shows that the broad P80 version is too weak, while frozen P90/09:31 survives representative costs and 2x spread stress in the post-2021 regime. P95 is stronger but sparse and unstable across regimes. 2026-to-date is negative, so the result is not a deployment green light. The next stage is the frozen V3 forward shadow/paper validation. GitHub automation is in place to run the QuantConnect signal job after the US close and capture read-only live IG quotes at 09:31-10:00 on triggered sessions; activation requires the QuantConnect API credentials to be stored as repository secrets.
 
 ## Rule for future agents
 
