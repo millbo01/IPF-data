@@ -1,0 +1,14 @@
+provider,ticker,2x Long VIX Futures ETF,Unnamed: 1,Unnamed: 2,source_url,source_holdings_date,-1x Short VIX Futures ETF
+Volatility Shares,UVIX,,,,https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=uvix,10/06/2026,
+Volatility Shares,UVIX,Description,Shares/Contracts,Market Value/Notional,https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=uvix,10/06/2026,
+Volatility Shares,UVIX,,,,https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=uvix,10/06/2026,
+Volatility Shares,UVIX,CBOE VIX FUTURE   Oct26,"7,690","134,421,200.00",https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=uvix,10/06/2026,
+Volatility Shares,UVIX,CBOE VIX FUTURE   Nov26,"9,788","177,554,320.00",https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=uvix,10/06/2026,
+Volatility Shares,UVIX,Cash & Other,"155,961,732","155,961,732.37",https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=uvix,10/06/2026,
+Volatility Shares,SVIX,,,,https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=svix,10/06/2026,
+Volatility Shares,SVIX,,Shares/Contracts,Market Value/Notional,https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=svix,10/06/2026,Description
+Volatility Shares,SVIX,,,,https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=svix,10/06/2026,
+Volatility Shares,SVIX,,"5,400","351,000.00",https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=svix,10/06/2026,VIX US 11/18/26 C30
+Volatility Shares,SVIX,,"-3,584","-62,648,320.00",https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=svix,10/06/2026,CBOE VIX FUTURE   Oct26
+Volatility Shares,SVIX,,"-4,562","-82,754,680.00",https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=svix,10/06/2026,CBOE VIX FUTURE   Nov26
+Volatility Shares,SVIX,,"145,040,179","145,040,178.89",https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=svix,10/06/2026,Cash & Other
