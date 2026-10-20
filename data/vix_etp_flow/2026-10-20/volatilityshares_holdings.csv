@@ -1,0 +1,14 @@
+provider,ticker,2x Long VIX Futures ETF,Unnamed: 1,Unnamed: 2,source_url,source_holdings_date,-1x Short VIX Futures ETF
+Volatility Shares,UVIX,,,,https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=uvix,10/20/2026,
+Volatility Shares,UVIX,Description,Shares/Contracts,Market Value/Notional,https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=uvix,10/20/2026,
+Volatility Shares,UVIX,,,,https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=uvix,10/20/2026,
+Volatility Shares,UVIX,CBOE VIX FUTURE   Oct26,726,"13,147,860.00",https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=uvix,10/20/2026,
+Volatility Shares,UVIX,CBOE VIX FUTURE   Nov26,"17,412","323,340,840.00",https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=uvix,10/20/2026,
+Volatility Shares,UVIX,Cash & Other,"168,210,705","168,210,704.90",https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=uvix,10/20/2026,
+Volatility Shares,SVIX,,,,https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=svix,10/20/2026,
+Volatility Shares,SVIX,,Shares/Contracts,Market Value/Notional,https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=svix,10/20/2026,Description
+Volatility Shares,SVIX,,,,https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=svix,10/20/2026,
+Volatility Shares,SVIX,,"5,400","437,400.00",https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=svix,10/20/2026,VIX US 11/18/26 C30
+Volatility Shares,SVIX,,-288,"-5,215,680.00",https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=svix,10/20/2026,CBOE VIX FUTURE   Oct26
+Volatility Shares,SVIX,,"-6,900","-128,133,000.00",https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=svix,10/20/2026,CBOE VIX FUTURE   Nov26
+Volatility Shares,SVIX,,"132,901,913","132,901,912.80",https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=svix,10/20/2026,Cash & Other
