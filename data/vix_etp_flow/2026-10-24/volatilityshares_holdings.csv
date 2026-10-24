@@ -1,0 +1,14 @@
+provider,ticker,2x Long VIX Futures ETF,Unnamed: 1,Unnamed: 2,source_url,source_holdings_date,-1x Short VIX Futures ETF
+Volatility Shares,UVIX,,,,https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=uvix,10/26/2026,
+Volatility Shares,UVIX,Description,Shares/Contracts,Market Value/Notional,https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=uvix,10/26/2026,
+Volatility Shares,UVIX,,,,https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=uvix,10/26/2026,
+Volatility Shares,UVIX,CBOE VIX FUTURE   Nov26,"17,496","343,971,360.00",https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=uvix,10/26/2026,
+Volatility Shares,UVIX,CBOE VIX FUTURE   Dec26,"3,088","60,216,000.00",https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=uvix,10/26/2026,
+Volatility Shares,UVIX,Cash & Other,"202,016,272","202,016,272.20",https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=uvix,10/26/2026,
+Volatility Shares,SVIX,,,,https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=svix,10/26/2026,
+Volatility Shares,SVIX,,Shares/Contracts,Market Value/Notional,https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=svix,10/26/2026,Description
+Volatility Shares,SVIX,,,,https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=svix,10/26/2026,
+Volatility Shares,SVIX,,"5,400","442,800.00",https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=svix,10/26/2026,VIX US 11/18/26 C30
+Volatility Shares,SVIX,,"-5,252","-103,254,320.00",https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=svix,10/26/2026,CBOE VIX FUTURE   Nov26
+Volatility Shares,SVIX,,-927,"-18,076,500.00",https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=svix,10/26/2026,CBOE VIX FUTURE   Dec26
+Volatility Shares,SVIX,,"120,849,136","120,849,135.91",https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=svix,10/26/2026,Cash & Other
