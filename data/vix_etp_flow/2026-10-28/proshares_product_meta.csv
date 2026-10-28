@@ -1,0 +1,4 @@
+ticker,provider,holdings_date,net_assets,nav,source,holdings_rows
+UVXY,ProShares,10/27/2026,199333297.0,17.85,https://www.proshares.com/our-etfs/strategic/uvxy,4
+VIXY,ProShares,10/27/2026,223469260.0,17.37,https://www.proshares.com/our-etfs/strategic/vixy,4
+SVXY,ProShares,10/27/2026,207833872.0,1.16,https://www.proshares.com/our-etfs/strategic/svxy,4
