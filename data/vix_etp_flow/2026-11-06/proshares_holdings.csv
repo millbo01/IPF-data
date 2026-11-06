@@ -1,0 +1,13 @@
+provider,ticker,Weight,Ticker,Description,Exposure Value (Notional + GL),Market Value,Shares/Contracts,SEDOL Number,source_url,source_holdings_date
+ProShares,UVXY,86.15%,--,CBOE VIX FUTURE DEC26,195065922,--,8790,--,https://www.proshares.com/our-etfs/strategic/uvxy,11/05/2026
+ProShares,UVXY,63.62%,--,CBOE VIX FUTURE NOV26,144047921,--,5871,--,https://www.proshares.com/our-etfs/strategic/uvxy,11/05/2026
+ProShares,UVXY,--,IQMM,PROSHARES GENIUS MONEY MARKET ETF,55060500,--,550000,BTGTPK8,https://www.proshares.com/our-etfs/strategic/uvxy,11/05/2026
+ProShares,UVXY,--,--,NET OTHER ASSETS / CASH,--,"$226,419,669.26",226419669,--,https://www.proshares.com/our-etfs/strategic/uvxy,11/05/2026
+ProShares,VIXY,57.56%,--,CBOE VIX FUTURE DEC26,122276818,--,5510,--,https://www.proshares.com/our-etfs/strategic/vixy,11/05/2026
+ProShares,VIXY,42.41%,--,CBOE VIX FUTURE NOV26,90094356,--,3672,--,https://www.proshares.com/our-etfs/strategic/vixy,11/05/2026
+ProShares,VIXY,--,IQMM,PROSHARES GENIUS MONEY MARKET ETF,70077000,--,700000,BTGTPK8,https://www.proshares.com/our-etfs/strategic/vixy,11/05/2026
+ProShares,VIXY,--,--,NET OTHER ASSETS / CASH,--,"$212,431,885.45",212431885,--,https://www.proshares.com/our-etfs/strategic/vixy,11/05/2026
+ProShares,SVXY,-29.02%,--,CBOE VIX FUTURE DEC26,-53149361,--,-2395,--,https://www.proshares.com/our-etfs/strategic/svxy,11/05/2026
+ProShares,SVXY,-21.20%,--,CBOE VIX FUTURE NOV26,-38839697,--,-1583,--,https://www.proshares.com/our-etfs/strategic/svxy,11/05/2026
+ProShares,SVXY,--,IQMM,PROSHARES GENIUS MONEY MARKET ETF,70077000,--,700000,BTGTPK8,https://www.proshares.com/our-etfs/strategic/svxy,11/05/2026
+ProShares,SVXY,--,--,NET OTHER ASSETS / CASH,--,"$183,166,720.96",183166721,--,https://www.proshares.com/our-etfs/strategic/svxy,11/05/2026
