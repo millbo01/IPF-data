@@ -1,0 +1,68 @@
+{
+  "snapshot_utc": "2026-11-06T22:07:03.867434+00:00",
+  "snapshot_date": "2026-11-06",
+  "purpose": "Prospective public-data archive for VIX ETP mechanical-flow research",
+  "collector_version": 3,
+  "proshares": {
+    "products": [
+      {
+        "ticker": "UVXY",
+        "provider": "ProShares",
+        "holdings_date": "11/05/2026",
+        "net_assets": 242877499.0,
+        "nav": 13.11,
+        "source": "https://www.proshares.com/our-etfs/strategic/uvxy",
+        "holdings_rows": 4
+      },
+      {
+        "ticker": "VIXY",
+        "provider": "ProShares",
+        "holdings_date": "11/05/2026",
+        "net_assets": 238522079.0,
+        "nav": 9.4,
+        "source": "https://www.proshares.com/our-etfs/strategic/vixy",
+        "holdings_rows": 4
+      },
+      {
+        "ticker": "SVXY",
+        "provider": "ProShares",
+        "holdings_date": "11/05/2026",
+        "net_assets": 174985017.0,
+        "nav": 1.16,
+        "source": "https://www.proshares.com/our-etfs/strategic/svxy",
+        "holdings_rows": 4
+      }
+    ],
+    "product_errors": [],
+    "holdings_rows": 12
+  },
+  "volatilityshares": {
+    "products": [
+      {
+        "ticker": "UVIX",
+        "provider": "Volatility Shares",
+        "holdings_date": "11/06/2026",
+        "net_assets": 209057145.36,
+        "nav": 52.2,
+        "shares_outstanding": 4004843.0,
+        "source": "https://www.volatilityshares.com/uvix/",
+        "holdings_rows": 6,
+        "holdings_source": "https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=uvix"
+      },
+      {
+        "ticker": "SVIX",
+        "provider": "Volatility Shares",
+        "holdings_date": "11/06/2026",
+        "net_assets": 105918629.11,
+        "nav": 20.25,
+        "shares_outstanding": 5230000.0,
+        "source": "https://www.volatilityshares.com/svix/",
+        "holdings_rows": 7,
+        "holdings_source": "https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=svix"
+      }
+    ],
+    "product_errors": [],
+    "holdings_rows": 13
+  },
+  "errors": []
+}
