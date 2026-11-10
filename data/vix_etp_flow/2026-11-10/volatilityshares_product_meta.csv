@@ -1,0 +1,3 @@
+ticker,provider,holdings_date,net_assets,nav,shares_outstanding,source,holdings_rows,holdings_source
+UVIX,Volatility Shares,11/11/2026,92750412.15,37.63,2464843.0,https://www.volatilityshares.com/uvix/,6,https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=uvix
+SVIX,Volatility Shares,11/11/2026,268455870.05,23.0,11670000.0,https://www.volatilityshares.com/svix/,7,https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=svix
