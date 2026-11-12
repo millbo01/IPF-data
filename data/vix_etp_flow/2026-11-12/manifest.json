@@ -1,5 +1,5 @@
 {
-  "snapshot_utc": "2026-11-12T01:03:10.145421+00:00",
+  "snapshot_utc": "2026-11-12T23:54:42.863783+00:00",
   "snapshot_date": "2026-11-12",
   "purpose": "Prospective public-data archive for VIX ETP mechanical-flow research",
   "collector_version": 3,
@@ -41,9 +41,9 @@
       {
         "ticker": "UVIX",
         "provider": "Volatility Shares",
-        "holdings_date": "11/12/2026",
-        "net_assets": 112754596.51,
-        "nav": 37.52,
+        "holdings_date": "11/13/2026",
+        "net_assets": 97958874.37,
+        "nav": 32.6,
         "shares_outstanding": 3004843.0,
         "source": "https://www.volatilityshares.com/uvix/",
         "holdings_rows": 6,
@@ -52,10 +52,10 @@
       {
         "ticker": "SVIX",
         "provider": "Volatility Shares",
-        "holdings_date": "11/12/2026",
-        "net_assets": 263042700.9,
-        "nav": 23.03,
-        "shares_outstanding": 11420000.0,
+        "holdings_date": "11/13/2026",
+        "net_assets": 257519789.57,
+        "nav": 24.53,
+        "shares_outstanding": 10500000.0,
         "source": "https://www.volatilityshares.com/svix/",
         "holdings_rows": 7,
         "holdings_source": "https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=svix"
