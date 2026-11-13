@@ -1,0 +1,53 @@
+{
+  "snapshot_utc": "2026-11-13T23:55:57.356545+00:00",
+  "snapshot_date": "2026-11-13",
+  "purpose": "Prospective public-data archive for VIX ETP mechanical-flow research",
+  "collector_version": 3,
+  "proshares": {
+    "products": [
+      {
+        "ticker": "VIXY",
+        "provider": "ProShares",
+        "holdings_date": "11/12/2026",
+        "net_assets": 144866993.0,
+        "nav": 9.4,
+        "source": "https://www.proshares.com/our-etfs/strategic/vixy",
+        "holdings_rows": 4
+      }
+    ],
+    "product_errors": [
+      "UVXY: HTTPError: 500 Server Error: Internal Server Error for url: https://www.proshares.com/error?aspxerrorpath=/our-etfs/strategic/uvxy",
+      "SVXY: HTTPError: 500 Server Error: Internal Server Error for url: https://www.proshares.com/error?aspxerrorpath=/our-etfs/strategic/svxy"
+    ],
+    "holdings_rows": 4
+  },
+  "volatilityshares": {
+    "products": [
+      {
+        "ticker": "UVIX",
+        "provider": "Volatility Shares",
+        "holdings_date": "11/16/2026",
+        "net_assets": 104351319.93,
+        "nav": 34.73,
+        "shares_outstanding": 3004843.0,
+        "source": "https://www.volatilityshares.com/uvix/",
+        "holdings_rows": 6,
+        "holdings_source": "https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=uvix"
+      },
+      {
+        "ticker": "SVIX",
+        "provider": "Volatility Shares",
+        "holdings_date": "11/16/2026",
+        "net_assets": 236307866.52,
+        "nav": 23.73,
+        "shares_outstanding": 9960000.0,
+        "source": "https://www.volatilityshares.com/svix/",
+        "holdings_rows": 7,
+        "holdings_source": "https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=svix"
+      }
+    ],
+    "product_errors": [],
+    "holdings_rows": 13
+  },
+  "errors": []
+}
