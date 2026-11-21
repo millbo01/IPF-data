@@ -1,5 +1,5 @@
 {
-  "snapshot_utc": "2026-11-21T00:19:36.426174+00:00",
+  "snapshot_utc": "2026-11-21T23:36:57.913689+00:00",
   "snapshot_date": "2026-11-21",
   "purpose": "Prospective public-data archive for VIX ETP mechanical-flow research",
   "collector_version": 3,
@@ -8,7 +8,7 @@
       {
         "ticker": "UVXY",
         "provider": "ProShares",
-        "holdings_date": "11/19/2026",
+        "holdings_date": "11/20/2026",
         "net_assets": 198695903.0,
         "nav": 13.11,
         "source": "https://www.proshares.com/our-etfs/strategic/uvxy",
@@ -17,7 +17,7 @@
       {
         "ticker": "VIXY",
         "provider": "ProShares",
-        "holdings_date": "11/19/2026",
+        "holdings_date": "11/20/2026",
         "net_assets": 177621113.0,
         "nav": 9.4,
         "source": "https://www.proshares.com/our-etfs/strategic/vixy",
@@ -26,7 +26,7 @@
       {
         "ticker": "SVXY",
         "provider": "ProShares",
-        "holdings_date": "11/19/2026",
+        "holdings_date": "11/20/2026",
         "net_assets": 172137508.0,
         "nav": 1.16,
         "source": "https://www.proshares.com/our-etfs/strategic/svxy",
@@ -41,7 +41,7 @@
       {
         "ticker": "UVIX",
         "provider": "Volatility Shares",
-        "holdings_date": "11/20/2026",
+        "holdings_date": "11/23/2026",
         "net_assets": 152257983.05,
         "nav": 56.5,
         "shares_outstanding": 2694843.0,
@@ -52,7 +52,7 @@
       {
         "ticker": "SVIX",
         "provider": "Volatility Shares",
-        "holdings_date": "11/20/2026",
+        "holdings_date": "11/23/2026",
         "net_assets": 213064503.8,
         "nav": 17.89,
         "shares_outstanding": 11910000.0,

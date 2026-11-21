@@ -1,14 +1,14 @@
 provider,ticker,2x Long VIX Futures ETF,Unnamed: 1,Unnamed: 2,source_url,source_holdings_date,-1x Short VIX Futures ETF
-Volatility Shares,UVIX,,,,https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=uvix,11/20/2026,
-Volatility Shares,UVIX,Description,Shares/Contracts,Market Value/Notional,https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=uvix,11/20/2026,
-Volatility Shares,UVIX,,,,https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=uvix,11/20/2026,
-Volatility Shares,UVIX,CBOE VIX FUTURE   Jan27,"1,257","29,992,020.00",https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=uvix,11/20/2026,
-Volatility Shares,UVIX,CBOE VIX FUTURE   Dec26,"10,683","259,810,560.00",https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=uvix,11/20/2026,
-Volatility Shares,UVIX,Cash & Other,"144,889,767","144,889,767.22",https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=uvix,11/20/2026,
-Volatility Shares,SVIX,,,,https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=svix,11/20/2026,
-Volatility Shares,SVIX,,Shares/Contracts,Market Value/Notional,https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=svix,11/20/2026,Description
-Volatility Shares,SVIX,,,,https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=svix,11/20/2026,
-Volatility Shares,SVIX,,"5,400","642,600.00",https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=svix,11/20/2026,VIX US 12/16/26 C40
-Volatility Shares,SVIX,,"-1,086","-25,911,960.00",https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=svix,11/20/2026,CBOE VIX FUTURE   Jan27
-Volatility Shares,SVIX,,"-9,234","-224,570,880.00",https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=svix,11/20/2026,CBOE VIX FUTURE   Dec26
-Volatility Shares,SVIX,,"249,708,281","249,708,281.30",https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=svix,11/20/2026,Cash & Other
+Volatility Shares,UVIX,,,,https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=uvix,11/23/2026,
+Volatility Shares,UVIX,Description,Shares/Contracts,Market Value/Notional,https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=uvix,11/23/2026,
+Volatility Shares,UVIX,,,,https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=uvix,11/23/2026,
+Volatility Shares,UVIX,CBOE VIX FUTURE   Jan27,"1,955","51,299,200.00",https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=uvix,11/23/2026,
+Volatility Shares,UVIX,CBOE VIX FUTURE   Dec26,"10,425","296,382,750.00",https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=uvix,11/23/2026,
+Volatility Shares,UVIX,Cash & Other,"174,025,970","174,025,969.63",https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=uvix,11/23/2026,
+Volatility Shares,SVIX,,,,https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=svix,11/23/2026,
+Volatility Shares,SVIX,,Shares/Contracts,Market Value/Notional,https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=svix,11/23/2026,Description
+Volatility Shares,SVIX,,,,https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=svix,11/23/2026,
+Volatility Shares,SVIX,,"5,400","1,047,600.00",https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=svix,11/23/2026,VIX US 12/16/26 C40
+Volatility Shares,SVIX,,"-1,539","-40,383,360.00",https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=svix,11/23/2026,CBOE VIX FUTURE   Jan27
+Volatility Shares,SVIX,,"-8,205","-233,268,150.00",https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=svix,11/23/2026,CBOE VIX FUTURE   Dec26
+Volatility Shares,SVIX,,"272,991,049","272,991,048.75",https://www.volatilityshares.com/download-holdings-usbanks-1933.php?fund=svix,11/23/2026,Cash & Other
